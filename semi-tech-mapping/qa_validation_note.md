@@ -63,6 +63,8 @@ Run date: 2026-06-18
   - deepLinkCompanyKey: present
   - Listing market: present
   - All listing markets: present
+  - multi-select: present
+  - filterState: present
 - pages/framework.html: present
   - End-Market Exposure Matrix: present
   - Bull / Base / Bear Scenario Variables: present
