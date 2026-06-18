@@ -658,6 +658,7 @@ h1 {
 /* Value-chain page redesign: more workbench, fewer stacked cards. */
 .value-page {
   max-width:1560px;
+  padding-bottom:22px;
 }
 .value-hero {
   display:grid;
@@ -973,7 +974,8 @@ h1 {
 }
 .value-page .detail-pane {
   position:static;
-  max-height:min(72vh, 760px);
+  height:clamp(760px, 82vh, 920px);
+  max-height:none;
   overflow-y:auto;
   overflow-x:hidden;
   scrollbar-gutter:stable;
@@ -1789,7 +1791,7 @@ tbody tr:hover {
   .value-page .path-step:first-child { border-top:0; }
   .controls { grid-template-columns:1fr 1fr; }
   .detail-pane { position:static; }
-  .value-page .detail-pane { max-height:min(70vh, 680px); overflow-y:auto; }
+  .value-page .detail-pane { height:clamp(680px, 78vh, 820px); max-height:none; overflow-y:auto; }
 }
 @media (max-width:720px) {
   body { padding-top:118px; }
@@ -1850,7 +1852,7 @@ tbody tr:hover {
   .path-panel-head p { margin-top:8px; }
   .logic-canvas { min-height:0; }
   .logic-grid { min-width:0; grid-template-columns:1fr; }
-  .value-page .detail-pane { max-height:68vh; }
+  .value-page .detail-pane { height:min(76vh, 720px); max-height:none; }
   .edge-svg { display:none; }
   table { min-width:760px; }
   .section-title { display:block; }
