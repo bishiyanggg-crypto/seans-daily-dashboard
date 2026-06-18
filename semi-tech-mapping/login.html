@@ -1973,14 +1973,14 @@ tbody tr:hover {
         <button class="login-submit" type="submit">Login</button>
         <div class="login-error" id="loginError" role="alert"></div>
       </form>
-      <div class="login-footnote">Static front-end gate for daily research access. Session expires automatically after 14 days.</div>
+      <div class="login-footnote">Static front-end gate for daily research access. Session expires automatically after 24 hours.</div>
     </section>
   </main>
   <script>
   const AUTH_KEY = 'semiTechMappingAuth';
   const AUTH_USER = 'sean';
   const AUTH_PASSWORD_HASH = '9a1d3dd35f70e53eb58d3c4d39431457fc8eb8b83da6ddd849d642e41c6c372d';
-  const SESSION_MS = 14 * 24 * 60 * 60 * 1000;
+  const SESSION_MS = 24 * 60 * 60 * 1000;
   const form = document.getElementById('loginForm');
   const errorBox = document.getElementById('loginError');
 
