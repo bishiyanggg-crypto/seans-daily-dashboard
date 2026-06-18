@@ -54,14 +54,14 @@ Run date: 2026-06-18
 - pages/value_chain.html: present
   - logicCanvas: present
   - scenarioPanel: present
-  - Supply / demand flow: present
+  - Industry road map: present
+  - Foundational supply: present
   - stage-workbench: present
   - read-path: present
   - Value-Chain: present
   - company-link: present
   - Core-name audit: present
   - Investment logic: present
-  - Deeper upstream: present
   - 周期位置: present
 - pages/coverage_universe.html: present
   - companyTable: present

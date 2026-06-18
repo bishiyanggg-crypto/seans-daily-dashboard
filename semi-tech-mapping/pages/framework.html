@@ -1040,7 +1040,7 @@ h1 {
 }
 .flow-row {
   display:grid;
-  grid-template-columns:122px minmax(0,1fr);
+  grid-template-columns:150px minmax(0,1fr);
   gap:10px;
   align-items:start;
 }
@@ -1071,6 +1071,14 @@ h1 {
   display:grid;
   gap:6px;
 }
+.flow-row.foundation .flow-label span {
+  color:#0f766e;
+  border-color:#99d5c7;
+}
+.flow-row.downstream .flow-label span {
+  color:#b45309;
+  border-color:#f1c27d;
+}
 .flow-arrow {
   margin-left:12px;
   color:var(--muted);
@@ -1085,6 +1093,14 @@ h1 {
 }
 .value-page .rel-node.current {
   background:#eef5ff;
+}
+.value-page .rel-node.stack-layer {
+  border-left-color:#0f766e;
+  background:#f7fbf9;
+}
+.value-page .rel-node.stack-layer span {
+  color:#1d4ed8;
+  font-weight:750;
 }
 .value-page .rel-text {
   margin:0;

@@ -1040,7 +1040,7 @@ h1 {
 }
 .flow-row {
   display:grid;
-  grid-template-columns:122px minmax(0,1fr);
+  grid-template-columns:150px minmax(0,1fr);
   gap:10px;
   align-items:start;
 }
@@ -1071,6 +1071,14 @@ h1 {
   display:grid;
   gap:6px;
 }
+.flow-row.foundation .flow-label span {
+  color:#0f766e;
+  border-color:#99d5c7;
+}
+.flow-row.downstream .flow-label span {
+  color:#b45309;
+  border-color:#f1c27d;
+}
 .flow-arrow {
   margin-left:12px;
   color:var(--muted);
@@ -1085,6 +1093,14 @@ h1 {
 }
 .value-page .rel-node.current {
   background:#eef5ff;
+}
+.value-page .rel-node.stack-layer {
+  border-left-color:#0f766e;
+  background:#f7fbf9;
+}
+.value-page .rel-node.stack-layer span {
+  color:#1d4ed8;
+  font-weight:750;
 }
 .value-page .rel-text {
   margin:0;
@@ -1867,19 +1883,22 @@ function renderInvestmentLogic(id) {
     <p class="logic-caveat">Market read is a framework layer; refresh price performance, estimates and positioning through CIQ/Wind before publication-grade use.</p>
   </section>`;
 }
-function renderUpstreamStack(id) {
+function renderFoundationalSupply(id) {
   const stack = SEGMENT_UPSTREAM_STACK[id] || [];
   if (!stack.length) return '';
-  return `<section class="logic-panel">
-    <span class="mini-label">Deeper upstream / 基础上游</span>
-    <div class="upstream-stack">${stack.map(item => `
-      <article>
-        <b>${safe(item.layer)}</b>
-        <span>${safe(item.products)}</span>
-        <small>${safe(item.why)}</small>
-        <em>${safe(item.companies)}</em>
-      </article>`).join('')}</div>
-  </section>`;
+  return stack.map(item => `
+    <div class="rel-node stack-layer">
+      <b>${safe(item.layer)}</b>
+      <small>${safe(item.products)}</small>
+      <span>${safe(item.companies)}</span>
+    </div>`).join('');
+}
+function flowRow(label, html, index, extra='') {
+  if (!html) return '';
+  return `<div class="flow-row ${extra}">
+    <div class="flow-label"><span>${String(index).padStart(2, '0')}</span><b>${safe(label)}</b></div>
+    <div class="flow-items">${html}</div>
+  </div>`;
 }
 function relNodeButton(id, note='', extra='') {
   const klass = `rel-node ${extra || ''}`.trim();
@@ -1903,28 +1922,34 @@ function renderRelationshipMap(id) {
   const isDemand = id.startsWith('demand_');
   const upstreamFallback = isDemand ? (DEMANDS[id]?.products || '') : (entity?.upstream || '');
   const downstreamFallback = isDemand ? (DEMAND_TERMINAL_TEXT[id] || '') : (entity?.downstream || '');
-  const leftHtml = upstream.map(edge => {
+  const upstreamIndustryHtml = upstream.map(edge => {
     const klass = edge.from.startsWith('demand_') ? 'demand' : '';
     return relNodeButton(edge.from, edgeNote(edge), klass);
-  }).join('') || relText(upstreamFallback || 'No direct upstream suppliers mapped yet.');
+  }).join('');
+  const foundationalHtml = isDemand ? '' : renderFoundationalSupply(id);
   const centerHtml = `<button class="rel-node current"><b>${safe(nodeLabel(id))}</b><small>${safe(nodeSub(id))}</small><span>${safe(isDemand ? 'End demand / demand theme' : 'Selected industry segment')}</span></button>`;
-  const rightHtml = downstream.map(edge => {
+  const downstreamEdgeHtml = downstream.map(edge => {
     const klass = edge.to.startsWith('demand_') ? 'demand' : '';
     return relNodeButton(edge.to, edgeNote(edge), klass);
-  }).join('') + (downstreamFallback ? relText(downstreamFallback) : '');
+  }).join('');
+  const rows = [];
+  if (foundationalHtml) rows.push({ label: 'Foundational supply / 基础供给', html: foundationalHtml, extra: 'foundation' });
+  if (upstreamIndustryHtml) {
+    rows.push({ label: isDemand ? 'Pulled supply / 被需求拉动的供给' : 'Industry upstream / 产业上游', html: upstreamIndustryHtml, extra: 'upstream' });
+  } else if (!foundationalHtml && upstreamFallback) {
+    rows.push({ label: 'Upstream supply / 上游供给', html: relText(upstreamFallback), extra: 'upstream' });
+  }
+  rows.push({ label: 'Selected node / 当前环节', html: centerHtml, extra: 'current' });
+  const downstreamHtml = downstreamEdgeHtml + (downstreamFallback ? relText(downstreamFallback) : '');
+  if (downstreamHtml) rows.push({ label: isDemand ? 'Terminal read-through / 终端传导' : 'Demand / downstream / 下游需求', html: downstreamHtml, extra: 'downstream' });
+  const flowHtml = rows.map((row, idx) => `${idx ? '<div class="flow-arrow">↓</div>' : ''}${flowRow(row.label, row.html, idx + 1, row.extra)}`).join('');
   return `
     <section class="relationship-map">
       <div class="relationship-title">
-        <b>Supply / demand flow</b>
-        <span>按“谁供给当前节点 → 当前节点 → 当前节点服务谁/被谁拉动”阅读。需求主题如 AI Data Center 的上游就是 chips、memory、networking、optical、EMS/ODM、power/cooling 等供给侧。</span>
+        <b>Industry road map / 产业链传导图</b>
+        <span>按“基础供给 → 产业上游 → 当前环节 → 下游需求”阅读，基础材料、设备、工艺输入直接嵌入每个环节的 upstream road map。</span>
       </div>
-      <div class="flow-stack">
-        <div class="flow-row"><div class="flow-label"><span>01</span><b>Upstream supply</b></div><div class="flow-items">${leftHtml}</div></div>
-        <div class="flow-arrow">↓</div>
-        <div class="flow-row current"><div class="flow-label"><span>02</span><b>Selected node</b></div><div class="flow-items">${centerHtml}</div></div>
-        <div class="flow-arrow">↓</div>
-        <div class="flow-row"><div class="flow-label"><span>03</span><b>Demand / downstream</b></div><div class="flow-items">${rightHtml || relText('No direct downstream demand mapped yet.')}</div></div>
-      </div>
+      <div class="flow-stack">${flowHtml || relText('No direct roadmap mapped yet.')}</div>
     </section>`;
 }
 function bindRelationshipButtons() {
@@ -2032,13 +2057,16 @@ function renderDetail() {
     detail.innerHTML = `
       <h3>${safe(d.name_cn)}</h3>
       <p>${safe(d.name_en)}</p>
-      ${renderRelationshipMap(selectedNode)}
-      ${renderInvestmentLogic(selectedNode)}
+      <span class="mini-label">Cycle position / 周期位置</span>
       <div class="detail-quick">
         ${cycleCard('周期类型', c.cycle_type, 'important')}
         ${cycleCard('周期位置', cyclePosition(selectedNode), 'important')}
         ${cycleCard('核心驱动', c.drivers)}
         ${cycleCard('领先信号', c.leading, 'important')}
+      </div>
+      ${renderInvestmentLogic(selectedNode)}
+      ${renderRelationshipMap(selectedNode)}
+      <div class="detail-quick">
         ${cycleCard('滞后确认', c.lagging)}
         ${cycleCard('误读风险', c.watchout, 'warning')}
       </div>
@@ -2061,15 +2089,17 @@ function renderDetail() {
     detail.innerHTML = `
       <h3>${safe(s.name_cn)}</h3>
       <p>${safe(s.role)}</p>
-      ${renderRelationshipMap(selectedNode)}
-      ${renderInvestmentLogic(selectedNode)}
-      ${renderUpstreamStack(selectedNode)}
       <span class="mini-label">Cycle guide / 周期读法</span>
       <div class="detail-quick">
         ${cycleCard('周期类型', c.cycle_type || s.cycle, 'important')}
         ${cycleCard('周期位置', cyclePosition(selectedNode), 'important')}
         ${cycleCard('核心驱动', c.drivers)}
         ${cycleCard('领先信号', c.leading, 'important')}
+      </div>
+      ${renderInvestmentLogic(selectedNode)}
+      ${renderRelationshipMap(selectedNode)}
+      <span class="mini-label">More cycle checks / 进一步验证</span>
+      <div class="detail-quick">
         ${cycleCard('滞后确认', c.lagging)}
         ${cycleCard('利润传导', c.margin)}
         ${cycleCard('估值使用', c.valuation)}
