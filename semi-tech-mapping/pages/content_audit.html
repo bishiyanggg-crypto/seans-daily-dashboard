@@ -1178,6 +1178,39 @@ h1 {
   font-size:10px;
   font-weight:850;
 }
+.company-link-row {
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+  margin-top:2px;
+}
+.company-link {
+  display:inline-flex;
+  align-items:center;
+  min-height:24px;
+  padding:3px 8px;
+  border:1px solid #c8d6d2;
+  border-radius:999px;
+  background:#f8fbff;
+  color:var(--blue);
+  font-size:12px;
+  font-weight:850;
+  line-height:1.2;
+  text-decoration:none;
+}
+.company-link:hover {
+  border-color:var(--blue);
+  background:#eef5ff;
+}
+.company-link.disabled {
+  color:var(--muted);
+  background:#f8faf9;
+  pointer-events:none;
+}
+.audit-pass {
+  color:#0f766e;
+  font-weight:850;
+}
 .path-panel {
   margin:4px 0 16px;
   background:#fff;
@@ -1510,6 +1543,7 @@ tbody tr:hover {
       <div class="hero-actions">
         <a class="btn" href="../semi_content_audit_company_ledger.csv">Company audit ledger</a>
         <a class="btn" href="../semi_content_audit_segment_ledger.csv">Segment audit ledger</a>
+        <a class="btn" href="../semi_value_chain_core_name_audit.csv">Value-chain Core-name audit</a>
         <a class="btn" href="../semi_ciq_refresh_template_core.csv">CIQ refresh template</a>
       </div>
     </div>
@@ -1517,7 +1551,8 @@ tbody tr:hover {
 <div class="metric"><strong>139</strong><span>Core rows · Round 1 source-pack audit</span></div>
 <div class="metric"><strong>5</strong><span>High refresh flags · listing/deal/restructuring notes require current check</span></div>
 <div class="metric"><strong>307</strong><span>Needs CIQ refresh · market data fields are placeholders until refreshed</span></div>
-<div class="metric"><strong>16</strong><span>Segment ledgers · taxonomy and playbook checks</span></div></div>
+<div class="metric"><strong>16</strong><span>Segment ledgers · taxonomy and playbook checks</span></div>
+<div class="metric"><strong>139</strong><span>Value-chain Core links · segment Core names tied to Universe rows</span></div></div>
   </section>
   <section class="cycle-overview cycle-strip">
     <article class="cycle-lens"><b>Audit posture</b><span>页面内容现在按 preliminary / diligence-grade 管理；公司级 facts 需要 source tie-out 后才能升级。</span></article>

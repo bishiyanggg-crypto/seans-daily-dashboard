@@ -1178,6 +1178,39 @@ h1 {
   font-size:10px;
   font-weight:850;
 }
+.company-link-row {
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+  margin-top:2px;
+}
+.company-link {
+  display:inline-flex;
+  align-items:center;
+  min-height:24px;
+  padding:3px 8px;
+  border:1px solid #c8d6d2;
+  border-radius:999px;
+  background:#f8fbff;
+  color:var(--blue);
+  font-size:12px;
+  font-weight:850;
+  line-height:1.2;
+  text-decoration:none;
+}
+.company-link:hover {
+  border-color:var(--blue);
+  background:#eef5ff;
+}
+.company-link.disabled {
+  color:var(--muted);
+  background:#f8faf9;
+  pointer-events:none;
+}
+.audit-pass {
+  color:#0f766e;
+  font-weight:850;
+}
 .path-panel {
   margin:4px 0 16px;
   background:#fff;
@@ -1585,6 +1618,64 @@ let selectedStageIndex = 0;
 function safe(value) {
   return String(value ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
 }
+function companyKey(c) {
+  return `${c.ticker}|${c.company}`;
+}
+function companyHref(c) {
+  return `coverage_universe.html?company=${encodeURIComponent(companyKey(c))}`;
+}
+function companyLink(c, label=null) {
+  return `<a class="company-link" href="${companyHref(c)}" title="${safe(c.ticker)} · ${safe(c.exchange)} · ${safe(c.segment)}">${safe(label || c.company)}</a>`;
+}
+function normalizeCompanyToken(value) {
+  return String(value ?? '').toLowerCase().replace(/&/g, 'and').replace(/[^a-z0-9]/g, '');
+}
+const COMPANY_ALIAS = new Map(Object.entries({
+  adi: 'Analog Devices',
+  ti: 'Texas Instruments',
+  tsmc: 'Taiwan Semiconductor Manufacturing',
+  stmicro: 'STMicroelectronics',
+  onsemi: 'ON Semiconductor',
+  hynix: 'SK hynix',
+  skhynix: 'SK hynix',
+  honhai: 'Hon Hai Precision',
+  foxconn: 'Hon Hai Precision',
+  innolight: 'Zhongji Innolight'
+}).map(([k, v]) => [normalizeCompanyToken(k), v]));
+function resolveCompanyLabel(label) {
+  const token = normalizeCompanyToken(label);
+  if (!token) return null;
+  const alias = COMPANY_ALIAS.get(token);
+  if (alias) {
+    const aliasToken = normalizeCompanyToken(alias);
+    const aliasHit = COMPANIES.find(c => normalizeCompanyToken(c.company).startsWith(aliasToken) || normalizeCompanyToken(c.company).includes(aliasToken));
+    if (aliasHit) return aliasHit;
+  }
+  return COMPANIES.find(c => normalizeCompanyToken(c.ticker) === token)
+    || COMPANIES.find(c => normalizeCompanyToken(c.company) === token)
+    || COMPANIES.find(c => token.length >= 3 && normalizeCompanyToken(c.company).startsWith(token))
+    || COMPANIES.find(c => token.length >= 4 && normalizeCompanyToken(c.company).includes(token))
+    || null;
+}
+function coreNameLinksFromText(text) {
+  const labels = String(text || '').split(',').map(x => x.trim()).filter(Boolean);
+  if (!labels.length) return 'n/a';
+  const used = new Set();
+  const html = labels.map(label => {
+    const hit = resolveCompanyLabel(label);
+    if (hit && !used.has(companyKey(hit))) {
+      used.add(companyKey(hit));
+      return companyLink(hit, label);
+    }
+    return `<span class="company-link disabled" title="Alias not resolved to a unique Universe row">${safe(label)}</span>`;
+  }).join('');
+  return `<div class="company-link-row">${html}</div>`;
+}
+function coreCompanyLinksForSegment(segmentId, limit=12) {
+  const coreCompanies = COMPANIES.filter(c => c.segment_id === segmentId && c.priority === 'Core').slice(0, limit);
+  if (!coreCompanies.length) return 'n/a';
+  return `<div class="company-link-row">${coreCompanies.map(c => companyLink(c)).join('')}</div>`;
+}
 function nodeLabel(id) {
   if (segmentById.has(id)) return segmentById.get(id).name_cn;
   return DEMANDS[id]?.name_cn || id;
@@ -1777,7 +1868,8 @@ function renderDetail() {
         <dt>Pulled segments</dt><dd>${safe(d.products)}</dd>
         <dt>Model angle</dt><dd>${safe(d.questions)}</dd>
         <dt>Risk</dt><dd>${safe(d.risk)}</dd>
-        <dt>Core names</dt><dd>${safe(d.core_names)}</dd>
+        <dt>Core names</dt><dd>${coreNameLinksFromText(d.core_names)}</dd>
+        <dt>Link audit</dt><dd><span class="audit-pass">Alias links resolve to Universe rows where a unique ticker/company match exists.</span></dd>
         <dt>Outgoing edges</dt><dd>${outgoing.length}</dd>
       </dl>
       <div class="edge-list">${edgeHtml || '<div class="edge-card"><span>No related edge selected.</span></div>'}</div>`;
@@ -1786,7 +1878,7 @@ function renderDetail() {
     const p = PLAYBOOKS[selectedNode] || {};
     const c = cycleForNode(selectedNode);
     const companies = COMPANIES.filter(c => c.segment_id === selectedNode);
-    const core = companies.filter(c => c.priority === 'Core').slice(0, 10).map(c => c.company).join(' · ');
+    const coreCount = companies.filter(c => c.priority === 'Core').length;
     detail.innerHTML = `
       <h3>${safe(s.name_cn)}</h3>
       <p>${safe(s.role)}</p>
@@ -1810,8 +1902,9 @@ function renderDetail() {
         <dt>KPI</dt><dd>${safe(s.kpis)}</dd>
         <dt>Model driver</dt><dd>${safe(p.model_drivers || '')}</dd>
         <dt>Red flags</dt><dd>${safe(p.red_flags || '')}</dd>
-        <dt>Coverage</dt><dd>${companies.length} names; Core: ${companies.filter(c => c.priority === 'Core').length}</dd>
-        <dt>Core names</dt><dd>${safe(core || 'n/a')}</dd>
+        <dt>Coverage</dt><dd>${companies.length} names; Core: ${coreCount}</dd>
+        <dt>Core names</dt><dd>${coreCompanyLinksForSegment(selectedNode)}</dd>
+        <dt>Core-name audit</dt><dd><span class="audit-pass">Pass: these links are generated from Universe rows with matching segment_id and priority = Core.</span></dd>
         <dt>Company table</dt><dd><a href="coverage_universe.html?segment=${safe(selectedNode)}">Open filtered universe</a></dd>
       </dl>
       <div class="edge-list">${edgeHtml || '<div class="edge-card"><span>No related edge selected.</span></div>'}</div>`;

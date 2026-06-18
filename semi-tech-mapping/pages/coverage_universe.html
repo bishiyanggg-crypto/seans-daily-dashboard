@@ -1178,6 +1178,39 @@ h1 {
   font-size:10px;
   font-weight:850;
 }
+.company-link-row {
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+  margin-top:2px;
+}
+.company-link {
+  display:inline-flex;
+  align-items:center;
+  min-height:24px;
+  padding:3px 8px;
+  border:1px solid #c8d6d2;
+  border-radius:999px;
+  background:#f8fbff;
+  color:var(--blue);
+  font-size:12px;
+  font-weight:850;
+  line-height:1.2;
+  text-decoration:none;
+}
+.company-link:hover {
+  border-color:var(--blue);
+  background:#eef5ff;
+}
+.company-link.disabled {
+  color:var(--muted);
+  background:#f8faf9;
+  pointer-events:none;
+}
+.audit-pass {
+  color:#0f766e;
+  font-weight:850;
+}
 .path-panel {
   margin:4px 0 16px;
   background:#fff;
@@ -1573,8 +1606,12 @@ const regionFilter = document.getElementById('regionFilter');
 const marketDataFilter = document.getElementById('marketDataFilter');
 const resultCount = document.getElementById('resultCount');
 let expandedKey = null;
+const params = new URLSearchParams(location.search);
+let deepLinkCompanyKey = '';
 function safe(value) { return String(value ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch])); }
+function companyKey(c) { return c.ticker + '|' + c.company; }
 function matches(c) {
+  if (deepLinkCompanyKey && companyKey(c) !== deepLinkCompanyKey) return false;
   const q = searchBox.value.trim().toLowerCase();
   if (priorityFilter.value && c.priority !== priorityFilter.value) return false;
   if (segmentFilter.value && c.segment_id !== segmentFilter.value) return false;
@@ -1587,7 +1624,7 @@ function renderTable() {
   const rows = COMPANIES.filter(matches);
   resultCount.textContent = `${rows.length} / ${COMPANIES.length} companies`;
   tableBody.innerHTML = rows.map(c => {
-    const key = c.ticker + '|' + c.company;
+    const key = companyKey(c);
     const open = key === expandedKey;
     const main = `<tr data-key="${safe(key)}">
       <td class="ticker">${safe(c.ticker)}</td>
@@ -1614,9 +1651,20 @@ function renderTable() {
     renderTable();
   }));
 }
-const params = new URLSearchParams(location.search);
 if (params.get('segment')) segmentFilter.value = params.get('segment');
-[searchBox, priorityFilter, segmentFilter, regionFilter, marketDataFilter].forEach(el => el.addEventListener('input', () => { expandedKey = null; renderTable(); }));
+if (params.get('company')) {
+  const requested = params.get('company');
+  const hit = COMPANIES.find(c => companyKey(c) === requested);
+  if (hit) {
+    deepLinkCompanyKey = requested;
+    expandedKey = requested;
+    searchBox.value = hit.company;
+    segmentFilter.value = '';
+  } else {
+    searchBox.value = requested;
+  }
+}
+[searchBox, priorityFilter, segmentFilter, regionFilter, marketDataFilter].forEach(el => el.addEventListener('input', () => { deepLinkCompanyKey = ''; expandedKey = null; renderTable(); }));
 renderTable();
 </script>
 

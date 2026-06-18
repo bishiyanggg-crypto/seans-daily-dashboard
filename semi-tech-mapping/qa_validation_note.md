@@ -19,6 +19,7 @@ Run date: 2026-06-18
 - Value-chain scenario maps: 6
 - Content audit company ledger rows: 307
 - Content audit segment ledger rows: 16
+- Value-chain Core-name audit rows: 139
 - HTML structure: multi-page entry + 6 task pages + single-page archive.
 - End-market crosswalks: 6
 - Regional lenses: 7
@@ -52,10 +53,13 @@ Run date: 2026-06-18
   - stage-workbench: present
   - read-path: present
   - Value-Chain: present
+  - company-link: present
+  - Core-name audit: present
 - pages/coverage_universe.html: present
   - companyTable: present
   - searchBox: present
   - Coverage Universe: present
+  - deepLinkCompanyKey: present
 - pages/framework.html: present
   - End-Market Exposure Matrix: present
   - Bull / Base / Bear Scenario Variables: present
@@ -68,6 +72,7 @@ Run date: 2026-06-18
   - Content Audit: present
   - Audit Rules: present
   - Company Audit Ledger: present
+  - Value-chain Core-name audit: present
 - pages/data_sources.html: present
   - Official Market Context: present
   - Data Governance Layers: present
