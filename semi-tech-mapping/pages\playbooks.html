@@ -1,0 +1,1871 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Segment Playbooks | Semi Tech Mapping</title>
+  <style>
+:root {
+  --bg:#f5f7f6;
+  --paper:#ffffff;
+  --ink:#17211d;
+  --muted:#5e6b65;
+  --line:#d8e0dd;
+  --blue:#2457a6;
+  --teal:#0e7a6f;
+  --green:#4e7d38;
+  --amber:#af6b1b;
+  --red:#a33a3a;
+  --violet:#5a4b9f;
+  --chip:#eef3f1;
+  --shadow:0 12px 28px rgba(30,45,40,.08);
+}
+* { box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body {
+  margin:0;
+  padding-top:64px;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:Inter,"Segoe UI","PingFang SC","Microsoft YaHei",Arial,sans-serif;
+  letter-spacing:0;
+  overflow-x:hidden;
+}
+a { color:inherit; }
+p,
+span,
+dd,
+td,
+th,
+h2,
+h3,
+b,
+strong,
+.dek,
+.card,
+.panel,
+.metric,
+.guide-step,
+.scenario-meta div,
+.path-step,
+.node-card,
+.detail-pane {
+  overflow-wrap:anywhere;
+}
+.app-nav {
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
+  z-index:1000;
+  height:64px;
+  border-bottom:1px solid var(--line);
+  background:rgba(255,255,255,.96);
+  backdrop-filter:blur(12px);
+}
+.nav-frame {
+  max-width:1500px;
+  height:100%;
+  margin:0 auto;
+  padding:0 clamp(18px,3vw,44px);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:18px;
+  min-width:0;
+}
+.brand {
+  text-decoration:none;
+  font-weight:900;
+  color:var(--ink);
+  white-space:nowrap;
+  flex:0 0 auto;
+}
+.brand span {
+  display:block;
+  color:var(--muted);
+  font-size:11px;
+  font-weight:750;
+  margin-top:2px;
+}
+.nav-links {
+  display:flex;
+  align-items:center;
+  gap:6px;
+  overflow-x:auto;
+  max-width:100%;
+  min-width:0;
+  flex:1 1 auto;
+  scrollbar-width:thin;
+  -webkit-overflow-scrolling:touch;
+}
+.nav-links a {
+  min-height:40px;
+  display:inline-flex;
+  align-items:center;
+  border:1px solid transparent;
+  border-radius:999px;
+  padding:0 11px;
+  text-decoration:none;
+  color:#40504b;
+  font-size:12px;
+  font-weight:850;
+  white-space:nowrap;
+}
+.nav-links a:hover,
+.nav-links a.active {
+  background:#eef3f1;
+  border-color:var(--line);
+  color:var(--ink);
+}
+.page {
+  max-width:1500px;
+  margin:0 auto;
+  padding:26px clamp(18px,3vw,44px) 54px;
+}
+.hero {
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(270px,330px);
+  gap:22px;
+  align-items:start;
+  padding:10px 0 18px;
+}
+.eyebrow {
+  display:inline-flex;
+  align-items:center;
+  margin:0 0 12px;
+  padding:5px 9px;
+  border:1px solid #cad9d5;
+  border-radius:999px;
+  color:var(--teal);
+  background:rgba(255,255,255,.82);
+  font-size:12px;
+  font-weight:850;
+}
+h1 {
+  margin:0;
+  font-size:52px;
+  line-height:1.04;
+  letter-spacing:0;
+}
+.dek {
+  max-width:980px;
+  margin:14px 0 0;
+  color:var(--muted);
+  font-size:17px;
+  line-height:1.65;
+}
+.hero-actions {
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:16px;
+}
+.btn {
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:40px;
+  max-width:100%;
+  border:1px solid var(--line);
+  border-radius:999px;
+  padding:0 13px;
+  background:#fff;
+  text-decoration:none;
+  font-size:13px;
+  font-weight:850;
+  cursor:pointer;
+  line-height:1.2;
+  text-align:center;
+  white-space:normal;
+}
+.btn.primary {
+  background:var(--ink);
+  border-color:var(--ink);
+  color:#fff;
+}
+.metrics {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:9px;
+}
+.metric {
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:8px;
+  padding:13px;
+  box-shadow:var(--shadow);
+}
+.metric strong {
+  display:block;
+  font-size:26px;
+  line-height:1.05;
+}
+.metric span {
+  display:block;
+  margin-top:5px;
+  color:var(--muted);
+  font-size:12px;
+}
+.section-title {
+  display:flex;
+  align-items:end;
+  justify-content:space-between;
+  gap:20px;
+  margin:28px 0 13px;
+  scroll-margin-top:84px;
+}
+.section-title h2 {
+  margin:0;
+  font-size:26px;
+  line-height:1.18;
+}
+.section-title p {
+  max-width:790px;
+  margin:0;
+  color:var(--muted);
+  line-height:1.55;
+  font-size:14px;
+}
+.module-grid,
+.card-grid {
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:13px;
+}
+.module-card,
+.panel,
+.card {
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:8px;
+  box-shadow:var(--shadow);
+  min-width:0;
+}
+.module-card {
+  padding:16px;
+  text-decoration:none;
+}
+.module-card h3,
+.card h3,
+.panel h3 {
+  margin:0 0 8px;
+  font-size:17px;
+  line-height:1.35;
+}
+.module-card p,
+.card p,
+.panel p {
+  margin:0;
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.55;
+}
+.module-card b {
+  display:inline-flex;
+  margin-top:12px;
+  color:var(--blue);
+  font-size:12px;
+}
+.card {
+  padding:14px;
+}
+.card dl,
+.panel dl {
+  display:grid;
+  grid-template-columns:112px minmax(0,1fr);
+  gap:7px 10px;
+  margin:0;
+}
+.card dt,
+.panel dt {
+  color:#334155;
+  font-size:12px;
+  font-weight:850;
+}
+.card dd,
+.panel dd {
+  margin:0;
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.5;
+}
+.split {
+  display:grid;
+  grid-template-columns:minmax(0,1.35fr) minmax(360px,.8fr);
+  gap:16px;
+  align-items:start;
+}
+.panel {
+  padding:16px;
+}
+.pill-row {
+  display:flex;
+  flex-wrap:wrap;
+  gap:7px;
+  margin:10px 0 0;
+}
+.pill-row button {
+  min-height:38px;
+  max-width:100%;
+  border:1px solid var(--line);
+  border-radius:999px;
+  background:#fff;
+  padding:0 11px;
+  color:#40504b;
+  font-size:12px;
+  font-weight:850;
+  cursor:pointer;
+  line-height:1.2;
+  white-space:normal;
+}
+.pill-row button.active {
+  background:var(--ink);
+  color:#fff;
+  border-color:var(--ink);
+}
+.usage-board {
+  display:grid;
+  grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);
+  gap:12px;
+  margin:4px 0 16px;
+  align-items:stretch;
+}
+.usage-primary,
+.usage-card,
+.cycle-lens,
+.cycle-card {
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:8px;
+  box-shadow:var(--shadow);
+  min-width:0;
+}
+.usage-primary {
+  padding:16px;
+}
+.usage-primary b,
+.cycle-lens b,
+.cycle-card b {
+  display:block;
+  color:#334155;
+  font-size:12px;
+  line-height:1.35;
+}
+.usage-primary h2 {
+  margin:8px 0 8px;
+  font-size:22px;
+  line-height:1.22;
+}
+.usage-primary p {
+  margin:0;
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.55;
+}
+.usage-steps {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:10px;
+}
+.usage-card {
+  padding:12px;
+}
+.usage-card b {
+  display:block;
+  margin-bottom:5px;
+  font-size:13px;
+}
+.usage-card span {
+  display:block;
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.45;
+}
+.reader-guide {
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:10px;
+  margin:6px 0 16px;
+}
+.guide-step {
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:8px;
+  box-shadow:var(--shadow);
+  padding:12px;
+}
+.guide-step b {
+  display:block;
+  margin-bottom:5px;
+  font-size:13px;
+}
+.guide-step span {
+  display:block;
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.45;
+}
+.cycle-overview {
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:10px;
+  margin:0 0 16px;
+}
+.cycle-lens {
+  padding:12px;
+}
+.cycle-lens span,
+.cycle-card span {
+  display:block;
+  margin-top:5px;
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.45;
+}
+.logic-wrap {
+  display:grid;
+  grid-template-columns:minmax(0,1.18fr) minmax(390px,.82fr);
+  gap:16px;
+  align-items:start;
+}
+.logic-canvas {
+  position:relative;
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:8px;
+  box-shadow:var(--shadow);
+  overflow:hidden;
+}
+.logic-grid {
+  position:relative;
+  z-index:2;
+  padding:14px;
+  display:grid;
+  grid-template-columns:repeat(6,minmax(0,1fr));
+  gap:10px;
+}
+.logic-col {
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  min-width:0;
+}
+.logic-col h3 {
+  margin:0;
+  padding-bottom:8px;
+  border-bottom:1px solid var(--line);
+  color:#40504b;
+  font-size:12px;
+  line-height:1.3;
+  text-transform:uppercase;
+}
+.logic-col h3 span {
+  display:block;
+  margin-top:3px;
+  color:var(--muted);
+  font-weight:600;
+  text-transform:none;
+}
+.map-node {
+  appearance:none;
+  min-height:76px;
+  border:1px solid var(--line);
+  border-left:3px solid #c7d2cf;
+  border-radius:8px;
+  background:rgba(255,255,255,.94);
+  color:var(--ink);
+  text-align:left;
+  padding:9px;
+  cursor:pointer;
+  box-shadow:0 2px 8px rgba(30,45,40,.04);
+  transition:opacity 120ms ease, border-color 120ms ease, background 120ms ease;
+}
+.map-node:hover,
+.map-node.active {
+  border-color:var(--blue);
+  border-left-color:var(--blue);
+  background:#f4f7fd;
+}
+.map-node.is-related {
+  border-color:#a9bdcf;
+  background:#f9fbfc;
+}
+.map-node.is-source {
+  border-left-color:var(--teal);
+}
+.map-node.is-target {
+  border-left-color:var(--blue);
+}
+.map-node.dimmed {
+  opacity:.38;
+}
+.map-node.demand {
+  border-left-color:var(--amber);
+}
+.map-node b {
+  display:block;
+  font-size:13px;
+  line-height:1.25;
+}
+.map-node small {
+  display:block;
+  margin-top:7px;
+  color:var(--muted);
+  font-size:11px;
+  line-height:1.35;
+}
+.edge-svg {
+  display:none;
+}
+.detail-pane {
+  position:sticky;
+  top:82px;
+  max-height:calc(100vh - 100px);
+  overflow:auto;
+}
+.relationship-map {
+  margin:12px 0;
+  border:1px solid var(--line);
+  border-radius:8px;
+  background:#fbfcfb;
+  padding:10px;
+}
+.relationship-title {
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:10px;
+  margin-bottom:9px;
+}
+.relationship-title b {
+  display:block;
+  color:#334155;
+  font-size:12px;
+}
+.relationship-title span {
+  display:block;
+  max-width:520px;
+  color:var(--muted);
+  font-size:11px;
+  line-height:1.45;
+}
+.relationship-grid {
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 26px minmax(0,.82fr) 26px minmax(0,1fr);
+  gap:7px;
+  align-items:stretch;
+}
+.rel-col {
+  min-width:0;
+  border:1px solid #e0e7e4;
+  border-radius:8px;
+  background:#fff;
+  padding:8px;
+}
+.rel-col h4 {
+  margin:0 0 7px;
+  color:#334155;
+  font-size:11px;
+  line-height:1.3;
+  text-transform:uppercase;
+}
+.rel-arrow {
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:var(--blue);
+  font-size:18px;
+  font-weight:900;
+}
+.rel-node {
+  display:block;
+  width:100%;
+  margin-top:6px;
+  border:1px solid #c8d6d2;
+  border-left:3px solid #c8d6d2;
+  border-radius:8px;
+  background:#fff;
+  color:var(--ink);
+  padding:7px;
+  text-align:left;
+  cursor:pointer;
+}
+.rel-node:first-of-type { margin-top:0; }
+.rel-node:hover {
+  border-color:var(--blue);
+  border-left-color:var(--blue);
+  background:#f4f7fd;
+}
+.rel-node.current {
+  border-color:var(--blue);
+  border-left-color:var(--blue);
+  background:#eef5ff;
+  cursor:default;
+}
+.rel-node.demand {
+  border-left-color:var(--amber);
+}
+.rel-node b {
+  display:block;
+  font-size:12px;
+  line-height:1.25;
+}
+.rel-node small,
+.rel-node span {
+  display:block;
+  margin-top:4px;
+  color:var(--muted);
+  font-size:10px;
+  line-height:1.35;
+}
+.rel-text {
+  margin-top:6px;
+  border:1px dashed #c8d6d2;
+  border-radius:8px;
+  padding:7px;
+  color:var(--muted);
+  background:#fbfcfb;
+  font-size:11px;
+  line-height:1.45;
+}
+.rel-text:first-of-type { margin-top:0; }
+
+/* Value-chain page redesign: more workbench, fewer stacked cards. */
+.value-page {
+  max-width:1560px;
+}
+.value-hero {
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(250px,300px);
+  gap:26px;
+  align-items:start;
+  padding:18px 0 18px;
+  border-bottom:1px solid var(--line);
+}
+.value-hero .metrics {
+  align-self:start;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+}
+.value-page .metric {
+  box-shadow:none;
+  background:#fbfcfb;
+}
+.value-page .pill-row {
+  gap:6px;
+  margin-top:18px;
+}
+.value-page .pill-row button {
+  min-height:34px;
+  border-color:#cbd8d4;
+  background:#fff;
+}
+.value-page .pill-row button.active {
+  background:#12201b;
+  color:#fff;
+}
+.read-path {
+  display:grid;
+  grid-template-columns:minmax(230px,.45fr) minmax(0,1fr);
+  gap:20px;
+  padding:18px 0;
+  border-bottom:1px solid var(--line);
+}
+.read-path-intro {
+  padding-right:18px;
+  border-right:1px solid var(--line);
+}
+.read-path-intro b,
+.workspace-label b {
+  display:block;
+  color:#334155;
+  font-size:12px;
+  text-transform:uppercase;
+}
+.read-path-intro span,
+.workspace-label span {
+  display:block;
+  margin-top:8px;
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.55;
+}
+.read-path ol {
+  list-style:none;
+  margin:0;
+  padding:0;
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:0;
+  counter-reset:readstep;
+}
+.read-path li {
+  position:relative;
+  padding:2px 16px 0 22px;
+  border-left:1px solid #cbd8d4;
+  min-width:0;
+}
+.read-path li::before {
+  counter-increment:readstep;
+  content:"0" counter(readstep);
+  position:absolute;
+  left:-1px;
+  top:0;
+  transform:translateX(-50%);
+  width:24px;
+  height:24px;
+  display:grid;
+  place-items:center;
+  border:1px solid #cbd8d4;
+  border-radius:999px;
+  background:var(--bg);
+  color:var(--blue);
+  font-size:10px;
+  font-weight:900;
+}
+.read-path li b {
+  display:block;
+  font-size:13px;
+}
+.read-path li span {
+  display:block;
+  margin-top:6px;
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.45;
+}
+.value-page .cycle-overview {
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:0;
+  margin:0;
+  padding:14px 0;
+  border-bottom:1px solid var(--line);
+}
+.value-page .cycle-lens {
+  box-shadow:none;
+  border:0;
+  border-left:1px solid var(--line);
+  border-radius:0;
+  background:transparent;
+  padding:2px 16px;
+}
+.value-page .cycle-lens:first-child {
+  border-left:0;
+  padding-left:0;
+}
+.value-page .path-panel {
+  margin:18px 0 18px;
+  padding:0;
+  border:0;
+  box-shadow:none;
+  background:transparent;
+}
+.value-page .path-panel-head {
+  margin:0 0 12px;
+  padding-bottom:10px;
+  border-bottom:1px solid var(--line);
+}
+.value-page .scenario-meta {
+  margin:0 0 12px;
+  grid-template-columns:minmax(0,1.1fr) minmax(0,1fr) minmax(0,1.2fr);
+  gap:0;
+  border:1px solid var(--line);
+  border-radius:8px;
+  overflow:hidden;
+  background:#fff;
+}
+.value-page .scenario-meta div {
+  border:0;
+  border-left:1px solid var(--line);
+  border-radius:0;
+  background:#fff;
+  padding:11px 12px;
+}
+.value-page .scenario-meta div:first-child {
+  border-left:0;
+}
+.value-page .path-steps {
+  grid-template-columns:repeat(6,minmax(0,1fr));
+  gap:0;
+  border:1px solid var(--line);
+  border-radius:8px;
+  background:#fff;
+  overflow:hidden;
+}
+.value-page .path-step {
+  border:0;
+  border-left:1px solid var(--line);
+  border-radius:0;
+  background:#fff;
+  padding:12px;
+}
+.value-page .path-step:first-child {
+  border-left:0;
+}
+.value-page .path-step strong {
+  color:var(--blue);
+}
+.stage-workbench {
+  display:grid;
+  grid-template-columns:minmax(260px,.62fr) minmax(0,1fr);
+  gap:0;
+  border:1px solid var(--line);
+  border-radius:8px;
+  background:#fff;
+  overflow:hidden;
+}
+.stage-rail {
+  display:grid;
+  gap:0;
+  border-right:1px solid var(--line);
+  background:#f6f8f7;
+}
+.stage-tab {
+  appearance:none;
+  width:100%;
+  min-height:68px;
+  border:0;
+  border-bottom:1px solid var(--line);
+  border-left:3px solid transparent;
+  background:transparent;
+  color:var(--ink);
+  padding:10px 12px;
+  text-align:left;
+  cursor:pointer;
+}
+.stage-tab:last-child {
+  border-bottom:0;
+}
+.stage-tab:hover,
+.stage-tab.active {
+  background:#fff;
+  border-left-color:var(--blue);
+}
+.stage-tab b {
+  display:block;
+  color:#334155;
+  font-size:12px;
+  line-height:1.25;
+}
+.stage-tab span {
+  display:block;
+  margin-top:5px;
+  color:var(--muted);
+  font-size:11px;
+  line-height:1.35;
+}
+.stage-detail {
+  padding:14px 16px;
+  min-width:0;
+}
+.stage-detail-head {
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:14px;
+  padding-bottom:12px;
+  border-bottom:1px solid var(--line);
+}
+.stage-detail-head h3 {
+  margin:0;
+  color:var(--blue);
+  font-size:18px;
+  line-height:1.25;
+}
+.stage-detail-head p {
+  margin:5px 0 0;
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.55;
+}
+.stage-detail-grid {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:0;
+  border-bottom:1px solid var(--line);
+}
+.stage-field {
+  padding:12px 12px 12px 0;
+  border-left:1px solid var(--line);
+}
+.stage-field:first-child {
+  border-left:0;
+}
+.stage-field:nth-child(3) {
+  grid-column:1 / -1;
+  border-left:0;
+  border-top:1px solid var(--line);
+  padding-right:0;
+}
+.stage-field b {
+  display:block;
+  color:#334155;
+  font-size:11px;
+  line-height:1.3;
+  text-transform:uppercase;
+}
+.stage-field span {
+  display:block;
+  margin-top:6px;
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.5;
+}
+.stage-node-row {
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:12px;
+  padding-top:12px;
+}
+.stage-node-row > b {
+  flex:0 0 auto;
+  color:#334155;
+  font-size:11px;
+  line-height:28px;
+  text-transform:uppercase;
+}
+.stage-node-row .node-chip-row {
+  flex:1 1 auto;
+  margin-top:0;
+  justify-content:flex-end;
+}
+.workspace-label {
+  display:flex;
+  justify-content:space-between;
+  gap:16px;
+  margin:22px 0 10px;
+  padding-top:14px;
+  border-top:1px solid var(--line);
+}
+.logic-wrap {
+  grid-template-columns:minmax(0,1.05fr) minmax(430px,.95fr);
+}
+.value-page .logic-canvas,
+.value-page .detail-pane {
+  box-shadow:none;
+  border:1px solid var(--line);
+  background:#fff;
+}
+.value-page .logic-grid {
+  gap:0;
+  padding:0;
+}
+.value-page .logic-col {
+  gap:0;
+  border-left:1px solid var(--line);
+}
+.value-page .logic-col:first-child {
+  border-left:0;
+}
+.value-page .logic-col h3 {
+  min-height:72px;
+  padding:12px 12px 10px;
+  background:#f6f8f7;
+  border-bottom:1px solid var(--line);
+}
+.value-page .map-node {
+  min-height:72px;
+  margin:0;
+  border:0;
+  border-bottom:1px solid #edf0f5;
+  border-left:3px solid transparent;
+  border-radius:0;
+  box-shadow:none;
+  background:#fff;
+}
+.value-page .map-node:last-child {
+  border-bottom:0;
+}
+.value-page .map-node:hover,
+.value-page .map-node.active {
+  background:#eef5ff;
+  border-left-color:var(--blue);
+}
+.value-page .map-node.is-related {
+  background:#f8fbfa;
+}
+.value-page .map-node.dimmed {
+  opacity:.36;
+}
+.value-page .map-node.demand {
+  border-left-color:var(--amber);
+}
+.value-page .detail-pane {
+  padding:0;
+}
+.value-page .detail-pane > h3,
+.value-page .detail-pane > p,
+.value-page .detail-pane > .mini-label,
+.value-page .detail-pane > dl,
+.value-page .detail-pane > .edge-list {
+  margin-left:16px;
+  margin-right:16px;
+}
+.value-page .detail-pane > h3 {
+  margin-top:16px;
+  margin-bottom:4px;
+  font-size:20px;
+}
+.value-page .detail-pane > p {
+  margin-top:0;
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.55;
+}
+.value-page .detail-pane dl {
+  border-top:1px solid var(--line);
+  padding-top:12px;
+}
+.value-page .relationship-map {
+  margin:14px 0;
+  padding:14px 16px;
+  border:0;
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+  border-radius:0;
+  background:#fbfcfb;
+}
+.value-page .relationship-title {
+  display:block;
+}
+.value-page .relationship-title span {
+  margin-top:4px;
+  max-width:none;
+}
+.flow-stack {
+  margin-top:12px;
+  display:grid;
+  gap:8px;
+}
+.flow-row {
+  display:grid;
+  grid-template-columns:122px minmax(0,1fr);
+  gap:10px;
+  align-items:start;
+}
+.flow-label {
+  display:flex;
+  align-items:center;
+  gap:7px;
+  min-height:32px;
+  color:#334155;
+}
+.flow-label span {
+  width:24px;
+  height:24px;
+  display:grid;
+  place-items:center;
+  border:1px solid #cbd8d4;
+  border-radius:999px;
+  color:var(--blue);
+  font-size:10px;
+  font-weight:900;
+}
+.flow-label b {
+  font-size:11px;
+  line-height:1.25;
+  text-transform:uppercase;
+}
+.flow-items {
+  display:grid;
+  gap:6px;
+}
+.flow-arrow {
+  margin-left:12px;
+  color:var(--muted);
+  font-size:13px;
+  line-height:1;
+}
+.value-page .rel-node {
+  margin:0;
+  border-radius:7px;
+  box-shadow:none;
+  background:#fff;
+}
+.value-page .rel-node.current {
+  background:#eef5ff;
+}
+.value-page .rel-text {
+  margin:0;
+  border:0;
+  border-left:3px solid #cbd8d4;
+  border-radius:0;
+  background:transparent;
+  padding:4px 0 4px 8px;
+}
+.value-page .detail-quick {
+  grid-template-columns:1fr;
+  gap:0;
+  margin:0;
+  border-top:1px solid var(--line);
+}
+.value-page .cycle-card {
+  padding:11px 16px;
+  border:0;
+  border-bottom:1px solid #edf0f5;
+  border-radius:0;
+  box-shadow:none;
+  background:#fff;
+}
+.value-page .cycle-card.important,
+.value-page .cycle-card.warning {
+  border-left:0;
+}
+.value-page .cycle-card b {
+  color:#334155;
+}
+.value-page .edge-list {
+  border-top:1px solid var(--line);
+  padding-top:12px;
+}
+.value-page .edge-card {
+  border:0;
+  border-left:3px solid #cbd8d4;
+  border-radius:0;
+  background:transparent;
+  padding:4px 0 4px 9px;
+}
+.edge-list {
+  display:grid;
+  gap:9px;
+  margin-top:12px;
+}
+.edge-card {
+  border:1px solid var(--line);
+  border-radius:8px;
+  padding:10px;
+  background:#fbfcfb;
+}
+.edge-card b {
+  display:block;
+  font-size:12px;
+  margin-bottom:4px;
+}
+.edge-card span {
+  display:block;
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.45;
+}
+.detail-quick {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:8px;
+  margin:12px 0;
+}
+.cycle-card {
+  padding:10px;
+}
+.cycle-card b {
+  text-transform:none;
+}
+.cycle-card.important {
+  border-left:3px solid var(--blue);
+}
+.cycle-card.warning {
+  border-left:3px solid var(--amber);
+}
+.mini-label {
+  display:inline-flex;
+  align-items:center;
+  margin-top:8px;
+  padding:3px 7px;
+  border:1px solid #c8d6d2;
+  border-radius:999px;
+  background:#fff;
+  color:#334155;
+  font-size:10px;
+  font-weight:850;
+}
+.path-panel {
+  margin:4px 0 16px;
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:8px;
+  box-shadow:var(--shadow);
+  padding:12px;
+}
+.path-panel-head {
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:12px;
+  margin-bottom:10px;
+}
+.path-panel-head h2 {
+  margin:0;
+  font-size:17px;
+  line-height:1.3;
+}
+.path-panel-head p {
+  margin:0;
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.45;
+  max-width:720px;
+}
+.scenario-meta {
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:8px;
+  margin:10px 0 12px;
+}
+.scenario-meta div {
+  border:1px solid var(--line);
+  border-radius:8px;
+  background:#fbfcfb;
+  padding:9px;
+}
+.scenario-meta b {
+  display:block;
+  margin-bottom:4px;
+  color:#334155;
+  font-size:11px;
+  text-transform:uppercase;
+}
+.scenario-meta span {
+  display:block;
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.45;
+}
+.path-steps {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
+  gap:9px;
+}
+.path-step {
+  border:1px solid var(--line);
+  border-left:3px solid var(--blue);
+  border-radius:8px;
+  background:#fbfcfb;
+  padding:10px;
+  min-width:0;
+}
+.path-step strong {
+  display:block;
+  font-size:12px;
+  line-height:1.35;
+}
+.path-step span {
+  display:block;
+  margin-top:5px;
+  color:var(--muted);
+  font-size:11px;
+  line-height:1.45;
+}
+.path-step .cycle-note {
+  margin-top:8px;
+  padding-top:7px;
+  border-top:1px solid #e6ece9;
+  color:#40504b;
+}
+.node-chip-row {
+  display:flex;
+  flex-wrap:wrap;
+  gap:5px;
+  margin-top:8px;
+}
+.node-chip {
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  max-width:100%;
+  border:1px solid #c8d6d2;
+  border-radius:999px;
+  background:#fff;
+  color:#334155;
+  padding:4px 7px;
+  font-size:11px;
+  font-weight:800;
+  cursor:pointer;
+  line-height:1.2;
+  text-align:center;
+  white-space:normal;
+}
+.node-chip:hover {
+  border-color:var(--blue);
+  color:var(--blue);
+}
+.controls {
+  display:grid;
+  grid-template-columns:minmax(220px,2fr) repeat(4,minmax(150px,1fr));
+  gap:10px;
+  margin:14px 0;
+}
+input,
+select {
+  width:100%;
+  min-height:42px;
+  border:1px solid var(--line);
+  border-radius:8px;
+  background:#fff;
+  color:var(--ink);
+  padding:10px 11px;
+  font-size:14px;
+}
+.table-shell,
+.source-table {
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:8px;
+  box-shadow:var(--shadow);
+  overflow:auto;
+}
+.table-summary {
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  padding:10px 12px;
+  border-bottom:1px solid var(--line);
+  color:var(--muted);
+  background:#fbfcfb;
+  font-size:13px;
+}
+table {
+  width:100%;
+  min-width:860px;
+  border-collapse:collapse;
+  font-size:13px;
+}
+th,
+td {
+  padding:10px 9px;
+  border-bottom:1px solid #edf0f5;
+  vertical-align:top;
+  text-align:left;
+}
+th {
+  position:sticky;
+  top:0;
+  z-index:2;
+  background:#f2f5f4;
+  color:#334155;
+  font-size:12px;
+}
+tbody tr:hover {
+  background:#f7fbff;
+}
+.priority {
+  display:inline-block;
+  border-radius:999px;
+  padding:3px 8px;
+  color:#fff;
+  background:#40504b;
+  font-size:11px;
+  font-weight:850;
+}
+.priority.Core { background:var(--blue); }
+.priority.Important { background:var(--teal); }
+.priority.Watchlist { background:var(--amber); }
+.ticker {
+  font-weight:850;
+  white-space:nowrap;
+}
+.muted { color:var(--muted); }
+.footer {
+  max-width:1500px;
+  margin:0 auto;
+  padding:0 clamp(18px,3vw,44px) 40px;
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.6;
+}
+@media (max-width:1100px) {
+  body { padding-top:112px; }
+  .app-nav { height:112px; }
+  .nav-frame { flex-direction:column; align-items:flex-start; justify-content:center; gap:8px; }
+  .hero,
+  .value-hero,
+  .split,
+  .read-path,
+  .usage-board,
+  .logic-wrap { grid-template-columns:1fr; }
+  .read-path-intro { border-right:0; padding-right:0; }
+  .read-path ol { grid-template-columns:repeat(2,minmax(0,1fr)); row-gap:14px; }
+  .module-grid,
+  .card-grid,
+  .reader-guide,
+  .cycle-overview,
+  .value-page .cycle-overview,
+  .path-steps,
+  .value-page .path-steps,
+  .scenario-meta { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .value-page .scenario-meta { grid-template-columns:1fr; }
+  .value-page .scenario-meta div { border-left:0; border-top:1px solid var(--line); }
+  .value-page .scenario-meta div:first-child { border-top:0; }
+  .stage-workbench { grid-template-columns:1fr; }
+  .stage-rail {
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    border-right:0;
+    border-bottom:1px solid var(--line);
+  }
+  .stage-tab {
+    border-left:0;
+    border-right:1px solid var(--line);
+  }
+  .stage-tab:nth-child(2n) { border-right:0; }
+  .stage-tab.active { border-left:0; box-shadow:inset 0 3px 0 var(--blue); }
+  .stage-detail-grid { grid-template-columns:1fr; }
+  .stage-field {
+    border-left:0;
+    border-top:1px solid var(--line);
+    padding:10px 0;
+  }
+  .stage-field:first-child { border-top:0; }
+  .value-page .path-step { border-left:0; border-top:1px solid var(--line); }
+  .value-page .path-step:first-child { border-top:0; }
+  .controls { grid-template-columns:1fr 1fr; }
+  .detail-pane { position:static; max-height:none; }
+}
+@media (max-width:720px) {
+  body { padding-top:118px; }
+  .app-nav { height:118px; }
+  .nav-links {
+    flex-wrap:wrap;
+    overflow:visible;
+    row-gap:5px;
+  }
+  .nav-links a {
+    min-height:30px;
+    padding:0 8px;
+    font-size:11px;
+  }
+  h1 { font-size:36px; }
+  .usage-primary h2 { font-size:20px; }
+  .dek { font-size:15px; }
+  .value-hero { gap:16px; padding-top:8px; }
+  .read-path { gap:12px; padding:14px 0; }
+  .read-path ol { grid-template-columns:1fr; }
+  .read-path li { padding-left:24px; }
+  .stage-rail { grid-template-columns:1fr; }
+  .stage-tab { border-right:0; min-height:58px; }
+  .stage-detail { padding:12px; }
+  .stage-detail-head { display:block; }
+  .stage-node-row { display:block; }
+  .stage-node-row .node-chip-row { justify-content:flex-start; margin-top:8px; }
+  .hero-actions {
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:8px;
+  }
+  .hero-actions .btn { width:100%; padding:8px 10px; }
+  .metrics,
+  .module-grid,
+  .card-grid,
+  .usage-steps,
+  .reader-guide,
+  .cycle-overview,
+  .value-page .cycle-overview,
+  .detail-quick,
+  .relationship-grid,
+  .scenario-meta,
+  .value-page .path-steps,
+  .flow-row,
+  .controls,
+  .path-steps { grid-template-columns:1fr; }
+  .value-page .cycle-lens {
+    border-left:0;
+    border-top:1px solid var(--line);
+    padding:10px 0;
+  }
+  .value-page .cycle-lens:first-child { border-top:0; }
+  .workspace-label { display:block; }
+  .flow-label { min-height:0; }
+  .rel-arrow { min-height:18px; transform:rotate(90deg); }
+  .path-panel-head { display:block; }
+  .path-panel-head p { margin-top:8px; }
+  .logic-canvas { min-height:0; }
+  .logic-grid { min-width:0; grid-template-columns:1fr; }
+  .edge-svg { display:none; }
+  table { min-width:760px; }
+  .section-title { display:block; }
+  .section-title p { margin-top:8px; }
+}
+</style>
+</head>
+<body>
+
+  <nav class="app-nav" aria-label="Primary navigation">
+    <div class="nav-frame">
+      <a class="brand" href="../semi_industry_mapping.html">Semi Tech Mapping<span>research cockpit · 2026-06-18</span></a>
+      <div class="nav-links"><a class="" href="../semi_industry_mapping.html">Home</a>
+<a class="" href="../pages/value_chain.html">Value Chain</a>
+<a class="" href="../pages/coverage_universe.html">Universe</a>
+<a class="" href="../pages/framework.html">Framework</a>
+<a class="active" href="../pages/playbooks.html">Playbooks</a>
+<a class="" href="../pages/data_sources.html">Data &amp; Sources</a></div>
+    </div>
+  </nav>
+
+
+<main class="page">
+  <section class="hero">
+    <div>
+      <div class="eyebrow">Execution layer</div>
+      <h1>Segment<br>Playbooks</h1>
+      <p class="dek">给二级分析师直接执行用：每个环节该建什么模型、看什么领先指标、哪些信号会证伪 thesis，以及 coverage 如何分阶段推进。</p>
+    </div>
+    
+      <div class="metrics">
+        <div class="metric"><strong>307</strong><span>上市公司 universe</span></div>
+        <div class="metric"><strong>139</strong><span>Core 优先覆盖</span></div>
+        <div class="metric"><strong>16</strong><span>产业链节点</span></div>
+        <div class="metric"><strong>32</strong><span>上下游逻辑边</span></div>
+      </div>
+
+  </section>
+  <section class="section-title"><h2>Segment Playbooks</h2><p>每个产业节点对应的研究动作和模型入口。</p></section>
+  <section class="card-grid"><article class="card">
+          <h3>EDA / IP / Design Enablement</h3>
+          <dl>
+            <dt>Submarkets</dt><dd>EDA core tools; verification/emulation; analog/custom IC design; physical implementation; IP licensing; ASIC design services; silicon lifecycle analytics.</dd>
+            <dt>Drivers</dt><dd>Seat growth, token/cloud usage, maintenance renewal, IP royalties, hardware emulation backlog, design services NRE, China/export-control exposure.</dd>
+            <dt>Indicators</dt><dd>Advanced-node tape-outs, hyperscaler ASIC programs, foundry PDK releases, RPO/remaining performance obligations, emulation lead times, hiring in chip design teams.</dd>
+            <dt>Red flags</dt><dd>Large customer insourcing, regulatory delay around major M&amp;A, China restrictions, EDA seat saturation, weaker design starts in handset/consumer.</dd>
+            <dt>First task</dt><dd>Build peer table separating software-like EDA from IP royalty and design-service models; map each Core company to node complexity and AI/custom-silicon exposure.</dd>
+          </dl>
+        </article>
+<article class="card">
+          <h3>Compute / AI / Logic Chips</h3>
+          <dl>
+            <dt>Submarkets</dt><dd>GPU/accelerators; server CPU; client CPU/GPU; FPGA/embedded; custom ASIC; DPU/NIC; edge AI SoC.</dd>
+            <dt>Drivers</dt><dd>Datacenter revenue, accelerator ASP, HBM/CoWoS allocation, software/networking attach, cloud capex, product cadence, gross margin by platform.</dd>
+            <dt>Indicators</dt><dd>Hyperscaler capex revisions, AI server lead times, HBM supply contracts, TSMC advanced-node mix, ODM backlog, accelerator benchmark adoption.</dd>
+            <dt>Red flags</dt><dd>Customer ROI fatigue, over-ordering, custom ASIC substitution, supply bottleneck moving outside chips, export restrictions, margin dilution from systems.</dd>
+            <dt>First task</dt><dd>Create AI compute scorecard: accelerator revenue, supply chain bottleneck, customer concentration, inference exposure, ecosystem lock-in and valuation sensitivity.</dd>
+          </dl>
+        </article>
+<article class="card">
+          <h3>Mobile / RF / Connectivity</h3>
+          <dl>
+            <dt>Submarkets</dt><dd>Mobile AP/modem; RF front-end; Wi-Fi/Bluetooth; display driver; image sensor; IoT connectivity; touch/fingerprint/audio chips.</dd>
+            <dt>Drivers</dt><dd>Handset units, premium mix, content per device, Android channel inventory, Apple content share, auto/IoT diversification, RF module integration.</dd>
+            <dt>Indicators</dt><dd>Smartphone sell-through, Taiwan fabless monthly revenue, China Android launch calendar, Apple build plans, distributor inventory, panel shipments.</dd>
+            <dt>Red flags</dt><dd>Apple insourcing, Android ASP pressure, inventory rebuild without sell-through, RF overcapacity, display driver commoditization.</dd>
+            <dt>First task</dt><dd>Split companies into handset-beta, connectivity-beta, display-beta and image-sensor-beta; do not compare RF, CIS and DDI on one multiple without cycle adjustment.</dd>
+          </dl>
+        </article>
+<article class="card">
+          <h3>Networking Silicon / SerDes / Data Movement</h3>
+          <dl>
+            <dt>Submarkets</dt><dd>Switch ASIC; routing silicon; optical DSP; retimer; SerDes IP; DPU/NIC; active electrical cable; CXL/PCIe fabric.</dd>
+            <dt>Drivers</dt><dd>Port-speed transition, switch radix, retimer attach rate, optical DSP ASP, custom silicon wins, cloud capex and AI cluster topology.</dd>
+            <dt>Indicators</dt><dd>800G/1.6T awards, Ethernet vs InfiniBand adoption, hyperscaler network architecture, Arista/Cisco order commentary, optical-module lead times.</dd>
+            <dt>Red flags</dt><dd>ASP erosion faster than port upgrade, cloud customer concentration, internal silicon displacement, CPO timing uncertainty, one-time pull-ins.</dd>
+            <dt>First task</dt><dd>Map every company to scale-out, scale-up, electrical or optical layer; build a port-speed migration table from 400G to 800G to 1.6T.</dd>
+          </dl>
+        </article>
+<article class="card">
+          <h3>Analog / Power / Mixed Signal</h3>
+          <dl>
+            <dt>Submarkets</dt><dd>Signal chain; power management; power discrete/modules; SiC/GaN; MCU; sensors; isolation; automotive radar/driver ICs.</dd>
+            <dt>Drivers</dt><dd>Industrial/auto inventory, channel sell-through, book-to-bill, utilization, pricing, SiC capacity, AI server power content.</dd>
+            <dt>Indicators</dt><dd>Distributor inventory days, auto production schedules, industrial PMI, EV inverter demand, data-center power density, lead times.</dd>
+            <dt>Red flags</dt><dd>Inventory correction masked by backlog, SiC price collapse, auto platform delays, China analog price competition, underloaded internal fabs.</dd>
+            <dt>First task</dt><dd>Separate long-cycle auto/industrial quality names from consumer analog and China localization names; normalize margins for utilization.</dd>
+          </dl>
+        </article>
+<article class="card">
+          <h3>Memory / Storage Semiconductors</h3>
+          <dl>
+            <dt>Submarkets</dt><dd>Commodity DRAM; HBM; NAND; enterprise SSD; HDD/nearline storage; NOR/specialty memory; controllers/modules.</dd>
+            <dt>Drivers</dt><dd>DRAM/NAND ASP, bit shipments, capex, inventory days, HBM qualification, enterprise SSD contract mix, storage nearline demand.</dd>
+            <dt>Indicators</dt><dd>Spot/contract memory pricing, memory capex plans, HBM supply agreements, hyperscaler storage orders, China smartphone/PC demand, module channel inventory.</dd>
+            <dt>Red flags</dt><dd>Annualizing peak ASP, HBM qualification loss, NAND overbuild, customer prebuy, capex discipline breakdown, hidden inventory at module makers.</dd>
+            <dt>First task</dt><dd>Build memory cycle sheet: ASP, bit growth, utilization, capex and HBM mix; value companies on normalized earnings and scenario margins.</dd>
+          </dl>
+        </article>
+<article class="card">
+          <h3>Foundry / IDM Manufacturing</h3>
+          <dl>
+            <dt>Submarkets</dt><dd>Leading-edge logic; mature foundry; specialty RF/BCD/power; IDM logic; specialty MEMS/sensor; captive advanced packaging.</dd>
+            <dt>Drivers</dt><dd>Utilization, wafer ASP, node mix, depreciation, capex, customer concentration, geographic capacity, subsidies, advanced packaging attach.</dd>
+            <dt>Indicators</dt><dd>Foundry monthly revenue, smartphone/PC sell-through, cloud ASIC tape-outs, WFE orders, fab utilization, node migration schedules.</dd>
+            <dt>Red flags</dt><dd>Mature-node overcapacity, depreciation cliff, technology slip, customer concentration, geopolitical disruption, underpriced government-led expansion.</dd>
+            <dt>First task</dt><dd>Separate advanced-node scarcity from mature-node cyclical recovery; build utilization and depreciation sensitivity by node and geography.</dd>
+          </dl>
+        </article>
+<article class="card">
+          <h3>Semicap Equipment</h3>
+          <dl>
+            <dt>Submarkets</dt><dd>Lithography; deposition; etch; clean; CMP; implant; thermal; track; compound semi tools; back-end equipment overlap.</dd>
+            <dt>Drivers</dt><dd>WFE TAM, orders, backlog, China mix, service revenue, installed base, node transition intensity, memory vs logic capex.</dd>
+            <dt>Indicators</dt><dd>TSMC/Samsung/Intel/Micron/SK capex, SEMI/WFE forecasts, equipment lead times, export-control updates, service growth.</dd>
+            <dt>Red flags</dt><dd>China pull-forward, order cancellations, memory capex pause, customer concentration, export restrictions, domestic substitution at lower margin.</dd>
+            <dt>First task</dt><dd>Build WFE wallet-share map by process step and customer; do not treat ASML/Lam/KLA/AMAT/TEL as interchangeable equipment beta.</dd>
+          </dl>
+        </article>
+<article class="card">
+          <h3>Process Control / Test / Metrology</h3>
+          <dl>
+            <dt>Submarkets</dt><dd>Metrology; inspection; ATE; probe cards; sockets/contactors; handlers; burn-in; system-level test; yield analytics.</dd>
+            <dt>Drivers</dt><dd>Test time, probe card ASP, advanced-node process-control intensity, HBM/AI complexity, new tester platforms, consumables refresh.</dd>
+            <dt>Indicators</dt><dd>AI/HBM product ramps, KLA/Advantest/Teradyne orders, OSAT capex, yield bottlenecks, new package qualification.</dd>
+            <dt>Red flags</dt><dd>One-platform demand spike, customer concentration, memory test pull-in, probe card pricing pressure, lower utilization at OSATs.</dd>
+            <dt>First task</dt><dd>Split process-control capital equipment from recurring probe/socket consumables; model AI/HBM test time as a separate driver.</dd>
+          </dl>
+        </article>
+<article class="card">
+          <h3>Materials / Wafers / Chemicals / Gases</h3>
+          <dl>
+            <dt>Submarkets</dt><dd>Silicon wafers; SOI/engineered substrates; SiC/GaN substrates; photoresist; CMP slurry/pads; gases; wet chemicals; photomasks; carriers/pods.</dd>
+            <dt>Drivers</dt><dd>Fab utilization, wafer starts, qualification wins, advanced-node material intensity, LTAs, gas onsite contracts, raw-material costs.</dd>
+            <dt>Indicators</dt><dd>Wafer shipments, fab utilization, WFE installation, foundry/memory capex, specialty gas pricing, EUV/advanced packaging material demand.</dd>
+            <dt>Red flags</dt><dd>Inventory at fabs, price resets after LTAs, qualification delays, China localization price pressure, raw material cost squeeze.</dd>
+            <dt>First task</dt><dd>Create materials map by consumable frequency and qualification barrier; separate volume cyclicality from structural content growth.</dd>
+          </dl>
+        </article>
+<article class="card">
+          <h3>OSAT / Advanced Packaging</h3>
+          <dl>
+            <dt>Submarkets</dt><dd>Wirebond; flip chip; WLCSP; fan-out; SiP; 2.5D/3D; HBM stacking; test services; packaging equipment.</dd>
+            <dt>Drivers</dt><dd>Advanced packaging capacity, utilization, capex, AI customer mix, substrate availability, test hours, package ASP.</dd>
+            <dt>Indicators</dt><dd>CoWoS/HBM capacity expansions, OSAT monthly revenue, substrate lead times, AI accelerator ramps, packaging equipment orders.</dd>
+            <dt>Red flags</dt><dd>Traditional OSAT price pressure, captive foundry packaging share, capex without customer prepayment, utilization dip after ramp.</dd>
+            <dt>First task</dt><dd>Separate traditional OSAT from advanced-packaging equipment and AI packaging capacity; watch capital intensity and customer concentration.</dd>
+          </dl>
+        </article>
+<article class="card">
+          <h3>Substrate / PCB / Interconnect</h3>
+          <dl>
+            <dt>Submarkets</dt><dd>ABF substrate; BT substrate; HDI; high-layer server PCB; low-loss CCL/prepreg; connectors/cables; thermal PCB materials.</dd>
+            <dt>Drivers</dt><dd>Layer count, ABF capacity, low-loss material mix, AI server/rack demand, yield, customer qualification, capex discipline.</dd>
+            <dt>Indicators</dt><dd>AI server ODM orders, GPU/ASIC substrate allocation, CCL pricing, Taiwan PCB monthly revenue, cloud switch port-speed transition.</dd>
+            <dt>Red flags</dt><dd>ABF overbuild, yield miss on high-layer boards, customer concentration, material shortages, server pull-forward.</dd>
+            <dt>First task</dt><dd>Build AI server BOM bridge: substrate, PCB, CCL, connector/cable and thermal content per rack.</dd>
+          </dl>
+        </article>
+<article class="card">
+          <h3>Optical / Photonics</h3>
+          <dl>
+            <dt>Submarkets</dt><dd>Datacom transceivers; telecom coherent optics; lasers; optical DSP; passive optical components; silicon photonics; CPO/optical engines.</dd>
+            <dt>Drivers</dt><dd>Port-speed mix, module ASP erosion, hyperscaler awards, laser yield, DSP content, 800G/1.6T ramp, telecom inventory.</dd>
+            <dt>Indicators</dt><dd>Cloud optical awards, 800G/1.6T shipments, Arista/NVIDIA/Broadcom architecture, laser lead times, China optical monthly revenue.</dd>
+            <dt>Red flags</dt><dd>Rapid ASP erosion, customer concentration, module commoditization, CPO timing uncertainty, telecom downturn spillover.</dd>
+            <dt>First task</dt><dd>Separate module assemblers from laser/DSP/component suppliers; build port-speed migration and ASP erosion scenarios.</dd>
+          </dl>
+        </article>
+<article class="card">
+          <h3>EMS / ODM / Systems</h3>
+          <dl>
+            <dt>Submarkets</dt><dd>AI server ODM; rack integration; networking white box; EMS; enterprise server OEM; storage systems; liquid-cooled system integration.</dd>
+            <dt>Drivers</dt><dd>AI server revenue, rack-scale attach, backlog, inventory, customer concentration, working capital, gross margin by system complexity.</dd>
+            <dt>Indicators</dt><dd>Hyperscaler capex, ODM monthly revenue, GPU allocation, power/cooling availability, rack-scale design wins, networking switch demand.</dd>
+            <dt>Red flags</dt><dd>Low-margin pass-through revenue, inventory financing, customer concentration, delayed GPU allocation, governance/accounting risk.</dd>
+            <dt>First task</dt><dd>Track AI server dollars and margin separately; compare ODMs on cash conversion, customer mix and rack-scale engineering content.</dd>
+          </dl>
+        </article>
+<article class="card">
+          <h3>Adjacent Infra / Industrial Enablers</h3>
+          <dl>
+            <dt>Submarkets</dt><dd>Data-center power; UPS; cooling/liquid cooling; connectors; cables; vacuum components; precision machining; fab engineering; automation.</dd>
+            <dt>Drivers</dt><dd>Backlog, project timing, power density, liquid-cooling attach, fab construction, WFE installed base, connector/cable content per rack.</dd>
+            <dt>Indicators</dt><dd>Data-center power awards, utility/grid constraints, liquid cooling adoption, fab build permits, WFE subsystem orders, ODM rack shipments.</dd>
+            <dt>Red flags</dt><dd>Project slippage, margin dilution from turnkey work, component commoditization, capex double-ordering, customer concentration.</dd>
+            <dt>First task</dt><dd>Create an AI infrastructure adjacency screen; distinguish chip-cycle exposure from data-center construction and fab-services exposure.</dd>
+          </dl>
+        </article>
+<article class="card">
+          <h3>Passives / Components / Sensors</h3>
+          <dl>
+            <dt>Submarkets</dt><dd>MLCC; inductors; resistors; filters; ceramic packages; sensors; display components; modules.</dd>
+            <dt>Drivers</dt><dd>Distributor inventory, auto/industrial content, high-end MLCC mix, smartphone/PC units, server content, utilization.</dd>
+            <dt>Indicators</dt><dd>MLCC lead times, auto production, smartphone builds, distributor sell-through, high-frequency component demand, Taiwan/Japan component monthly data.</dd>
+            <dt>Red flags</dt><dd>Inventory rebound without end demand, low-end price competition, overcapacity, weak consumer electronics, auto destocking.</dd>
+            <dt>First task</dt><dd>Separate passive-cycle leaders from display-cycle names and specialty ceramic/package suppliers; normalize for inventory swings.</dd>
+          </dl>
+        </article></section>
+  <section class="section-title"><h2>Segment KPI Monitor</h2><p>可升级成月度 tracker 的指标清单。</p></section>
+  <section class="card-grid"><article class="card">
+          <h3>EDA / IP / Design Enablement</h3>
+          <dl>
+            <dt>Question</dt><dd>设计启动和先进节点复杂度是否仍在推高 EDA/IP wallet share？</dd>
+            <dt>Metrics</dt><dd>RPO/ARR; design starts; emulation/prototyping demand; IP royalty; advanced-node tape-out wins</dd>
+            <dt>Source lane</dt><dd>公司订单/RPO披露、foundry PDK/节点节奏、客户 tape-out commentary、CIQ segment revenue</dd>
+            <dt>Model link</dt><dd>收入模型用 subscription + IP royalty + design-service milestone；估值看 recurring growth 和 RPO 转化。</dd>
+          </dl>
+        </article>
+<article class="card">
+          <h3>Compute / AI / Logic Chips</h3>
+          <dl>
+            <dt>Question</dt><dd>AI accelerator / ASIC 收入可见度是否足以支撑当前估值和毛利？</dd>
+            <dt>Metrics</dt><dd>hyperscaler capex; GPU/ASIC backlog; HBM attach; CoWoS allocation; datacenter GM; product cadence</dd>
+            <dt>Source lane</dt><dd>hyperscaler capex、vendor backlog/commentary、TSMC HPC mix、HBM supply agreement、CIQ consensus revisions</dd>
+            <dt>Model link</dt><dd>拆 accelerator unit、ASP、HBM/package constraint、networking/software attach 和 customer concentration。</dd>
+          </dl>
+        </article>
+<article class="card">
+          <h3>Mobile / RF / Connectivity</h3>
+          <dl>
+            <dt>Question</dt><dd>消费电子库存去化和高端机 mix 是否真正改善内容量和 ASP？</dd>
+            <dt>Metrics</dt><dd>handset sell-through; Android channel inventory; Apple build plan; RF content; Wi-Fi/Bluetooth attach; DDI/CIS pricing</dd>
+            <dt>Source lane</dt><dd>手机供应链月度收入、渠道库存、客户新品 BOM、公司 design-win commentary、CIQ segment/geography split</dd>
+            <dt>Model link</dt><dd>把 handset beta、RF content、CIS/DDI、connectivity 分开建模，不用一个消费电子倍数套所有公司。</dd>
+          </dl>
+        </article>
+<article class="card">
+          <h3>Networking Silicon / SerDes / Data Movement</h3>
+          <dl>
+            <dt>Question</dt><dd>AI scale-out 网络升级是否把价值留在 switch/SerDes/DSP/retimer？</dd>
+            <dt>Metrics</dt><dd>switch port speed mix; retimer attach; optical DSP ASP; Ethernet vs InfiniBand share; AI cluster topology</dd>
+            <dt>Source lane</dt><dd>cloud networking capex、Arista/NVIDIA/Broadcom/Marvell commentary、optical award、CIQ consensus revisions</dd>
+            <dt>Model link</dt><dd>按 port speed、radix、retimer/DSP attach 和 ASIC/custom silicon pipeline 拆收入。</dd>
+          </dl>
+        </article>
+<article class="card">
+          <h3>Analog / Power / Mixed Signal</h3>
+          <dl>
+            <dt>Question</dt><dd>工业/汽车去库存是否结束，AI power 是否足以抵消传统周期？</dd>
+            <dt>Metrics</dt><dd>book-to-bill; distributor inventory; auto production; EV inverter demand; SiC utilization; AI server power content</dd>
+            <dt>Source lane</dt><dd>分销商库存、公司 backlog/order commentary、汽车产量、工业 PMI、CIQ margin/segment estimates</dd>
+            <dt>Model link</dt><dd>把 long-cycle auto/industrial、consumer analog、AI power、SiC/GaN 分开建收入和毛利。</dd>
+          </dl>
+        </article>
+<article class="card">
+          <h3>Memory / Storage Semiconductors</h3>
+          <dl>
+            <dt>Question</dt><dd>HBM 结构性 mix 改善是否能穿越 DRAM/NAND 周期？</dd>
+            <dt>Metrics</dt><dd>DRAM/NAND contract ASP; bit shipment; inventory days; HBM qualification/share; memory capex; enterprise SSD demand</dd>
+            <dt>Source lane</dt><dd>memory pricing tracker、公司 capex/ASP commentary、HBM qualification news、CIQ consensus/margin revisions</dd>
+            <dt>Model link</dt><dd>用 ASP、bit growth、capex discipline、HBM mix 和 utilization 做 normalized earnings，而非年化峰值 EPS。</dd>
+          </dl>
+        </article>
+<article class="card">
+          <h3>Foundry / IDM Manufacturing</h3>
+          <dl>
+            <dt>Question</dt><dd>先进制程和成熟制程的稼动率/定价是否分化？</dd>
+            <dt>Metrics</dt><dd>utilization; wafer ASP; node mix; capex/depreciation; advanced-node share; customer concentration; geopolitics</dd>
+            <dt>Source lane</dt><dd>foundry 月度收入、公司法说、客户 tape-out、capex guidance、CIQ segment/geography data</dd>
+            <dt>Model link</dt><dd>先进 foundry 看 node leadership 和 HPC mix；成熟 foundry 看 utilization recovery、P/B 和政策产能。</dd>
+          </dl>
+        </article>
+<article class="card">
+          <h3>Semicap Equipment</h3>
+          <dl>
+            <dt>Question</dt><dd>WFE 订单是 AI/HBM 多年上行，还是 China pull-forward / memory catch-up？</dd>
+            <dt>Metrics</dt><dd>WFE TAM; orders/backlog; book-to-bill; service revenue; China mix; memory vs logic capex; export-control impact</dd>
+            <dt>Source lane</dt><dd>SEMI/WFE 数据、公司 backlog、客户 capex、出口管制更新、CIQ order/revenue revisions</dd>
+            <dt>Model link</dt><dd>按 process step、客户、China exposure、service mix 和 backlog quality 建 wallet-share 模型。</dd>
+          </dl>
+        </article>
+<article class="card">
+          <h3>Process Control / Test / Metrology</h3>
+          <dl>
+            <dt>Question</dt><dd>先进制程、HBM 和 advanced packaging 是否提高 metrology/ATE/probe 价值量？</dd>
+            <dt>Metrics</dt><dd>test time; probe-card ASP; ATE platform adoption; inspection intensity; OSAT capex; AI/HBM product ramps</dd>
+            <dt>Source lane</dt><dd>KLA/Advantest/Teradyne/Technoprobe commentary、OSAT capex、HBM stack/test bottleneck、CIQ margins</dd>
+            <dt>Model link</dt><dd>把 capital equipment 与 probe/socket consumables 分开；AI/HBM test time 用单独 driver。</dd>
+          </dl>
+        </article>
+<article class="card">
+          <h3>Materials / Wafers / Chemicals / Gases</h3>
+          <dl>
+            <dt>Question</dt><dd>晶圆开工率和先进材料用量是否足以带动耗材 ASP/mix？</dd>
+            <dt>Metrics</dt><dd>wafer starts; wafer shipment; fab utilization; specialty gas pricing; EUV/photoresist demand; qualification wins</dd>
+            <dt>Source lane</dt><dd>材料公司出货/价格、foundry utilization、WFE install base、客户认证进展、CIQ segment data</dd>
+            <dt>Model link</dt><dd>按 consumable frequency、qualification barrier、localization 和 raw-material pass-through 建模。</dd>
+          </dl>
+        </article>
+<article class="card">
+          <h3>OSAT / Advanced Packaging</h3>
+          <dl>
+            <dt>Question</dt><dd>先进封装利润池由 OSAT、foundry captive packaging 还是设备/材料捕获？</dd>
+            <dt>Metrics</dt><dd>CoWoS/2.5D capacity; HBM stack demand; OSAT utilization; packaging capex; substrate lead time; customer prepayment</dd>
+            <dt>Source lane</dt><dd>TSMC/ASE/Amkor/PTI/JCET commentary、packaging equipment orders、substrate data、CIQ segment margins</dd>
+            <dt>Model link</dt><dd>拆 traditional OSAT 与 advanced packaging；用 utilization、capex ROI、客户预付款和 mix 建毛利。</dd>
+          </dl>
+        </article>
+<article class="card">
+          <h3>Substrate / PCB / Interconnect</h3>
+          <dl>
+            <dt>Question</dt><dd>AI server/rack 的 ABF、PCB、low-loss material 内容量是否持续提升？</dd>
+            <dt>Metrics</dt><dd>ABF utilization; layer count; low-loss material mix; AI server share; substrate lead time; yield; customer concentration</dd>
+            <dt>Source lane</dt><dd>PCB/substrate 月度收入、ODM build plan、AI accelerator/rack BOM、材料供应商 commentary、CIQ margins</dd>
+            <dt>Model link</dt><dd>按 AI server share、layer count、material mix、yield 和 ASP erosion 建收入/GM sensitivity。</dd>
+          </dl>
+        </article>
+<article class="card">
+          <h3>Optical / Photonics</h3>
+          <dl>
+            <dt>Question</dt><dd>800G/1.6T 需求能否抵消光模块 ASP erosion？</dd>
+            <dt>Metrics</dt><dd>800G/1.6T awards; module ASP; laser yield; optical DSP content; hyperscaler concentration; telecom inventory</dd>
+            <dt>Source lane</dt><dd>光模块公司月度收入、hyperscaler award、Arista/NVIDIA architecture、laser/DSP suppliers、CIQ revisions</dd>
+            <dt>Model link</dt><dd>拆 module assembler、laser/component、DSP、contract manufacturing；单独建 port-speed migration 和 ASP curve。</dd>
+          </dl>
+        </article>
+<article class="card">
+          <h3>EMS / ODM / Systems</h3>
+          <dl>
+            <dt>Question</dt><dd>AI server/ODM 收入增长能否转化为现金流和可持续毛利？</dd>
+            <dt>Metrics</dt><dd>AI server mix; rack-scale awards; backlog; working capital; customer concentration; gross margin; cash conversion</dd>
+            <dt>Source lane</dt><dd>台湾 ODM 月度收入、hyperscaler capex、AI rack program、公司 margin/working capital、CIQ segment estimates</dd>
+            <dt>Model link</dt><dd>用 pass-through revenue、engineering value-add、rack integration、NWC 和 customer concentration 建模型。</dd>
+          </dl>
+        </article>
+<article class="card">
+          <h3>Adjacent Infra / Industrial Enablers</h3>
+          <dl>
+            <dt>Question</dt><dd>AI power/cooling/connectors 是结构性增量，还是项目型 capex 高峰？</dd>
+            <dt>Metrics</dt><dd>data-center power backlog; liquid-cooling attach; rack power density; connector/cable content; fab project awards</dd>
+            <dt>Source lane</dt><dd>industrial company backlog、data-center capex、rack BOM、liquid-cooling adoption、CIQ order/revenue revisions</dd>
+            <dt>Model link</dt><dd>区分 product margin 与 project/turnkey margin；用 backlog conversion、content per rack 和 attach rate 建模。</dd>
+          </dl>
+        </article>
+<article class="card">
+          <h3>Passives / Components / Sensors</h3>
+          <dl>
+            <dt>Question</dt><dd>被动元件/电子组件库存周期是否触底，高端 server/auto mix 是否提升？</dd>
+            <dt>Metrics</dt><dd>distributor inventory; MLCC/resistor pricing; utilization; auto/server mix; high-frequency component demand</dd>
+            <dt>Source lane</dt><dd>被动元件月度收入、渠道库存、auto/server build、公司 pricing/mix commentary、CIQ margins</dd>
+            <dt>Model link</dt><dd>把 commodity consumer components 与 high-end auto/server components 分开建 ASP、utilization 和 GM。</dd>
+          </dl>
+        </article></section>
+  <section class="section-title"><h2>Coverage Build Roadmap</h2><p>从 taxonomy 到 CIQ 数据、segment 模型、Core 公司深挖和监控系统。</p></section>
+  <section class="card-grid"><article class="card">
+          <h3>Phase 1 - Universe and taxonomy</h3>
+          <dl>
+            <dt>Question</dt><dd>Who belongs in the investable semi tech map and why?</dd>
+            <dt>Output</dt><dd>Segment taxonomy, priority classification, ticker normalization, dual-listing map.</dd>
+            <dt>Action</dt><dd>Lock segment_id and priority before adding market data.</dd>
+          </dl>
+        </article>
+<article class="card">
+          <h3>Phase 2 - Source and market-data refresh</h3>
+          <dl>
+            <dt>Question</dt><dd>Which facts are official, which are CIQ/consensus, and which are assumptions?</dd>
+            <dt>Output</dt><dd>CIQ export merge, source ledger, market-data as-of fields, unresolved source gaps.</dd>
+            <dt>Action</dt><dd>Refresh Core companies first; do not publish valuation screens with needs_CIQ fields.</dd>
+          </dl>
+        </article>
+<article class="card">
+          <h3>Phase 3 - Segment models</h3>
+          <dl>
+            <dt>Question</dt><dd>What moves earnings revisions for each value-chain node?</dd>
+            <dt>Output</dt><dd>KPI dashboards by segment: WFE orders, memory ASP, foundry utilization, AI server rack BOM, optical port speed.</dd>
+            <dt>Action</dt><dd>Build segment-specific drivers instead of a one-size-fits-all semi comp table.</dd>
+          </dl>
+        </article>
+<article class="card">
+          <h3>Phase 4 - Core company work</h3>
+          <dl>
+            <dt>Question</dt><dd>Which 100-150 companies deserve analyst time first?</dd>
+            <dt>Output</dt><dd>Core company tearsheets, source packs, thesis debates, model templates and comp groups.</dd>
+            <dt>Action</dt><dd>Start with Core companies where segment profit pools and end-market leverage overlap.</dd>
+          </dl>
+        </article>
+<article class="card">
+          <h3>Phase 5 - Monitoring system</h3>
+          <dl>
+            <dt>Question</dt><dd>How do we know when the view changes?</dd>
+            <dt>Output</dt><dd>Catalyst calendar, earnings tracker, monthly data monitor, supply-chain signal log.</dd>
+            <dt>Action</dt><dd>Tie each thesis to explicit falsifiers and high-frequency data points.</dd>
+          </dl>
+        </article></section>
+</main>
+
+<footer class="footer">Data cut-off: 2026-06-18. This is a research mapping artifact, not investment advice. Market data fields should be refreshed through CIQ/export before valuation use.</footer>
+
+</body>
+</html>
