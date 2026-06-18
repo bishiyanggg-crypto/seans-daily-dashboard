@@ -16,6 +16,10 @@ Global listed-company universe across semiconductor design, manufacturing, equip
 
 The fields market_cap_usd, fy_revenue_usd, gross_margin, ev_sales, pe, and consensus_revenue_growth are included in the CSV/JSON schema. In this first version they are intentionally marked needs_CIQ unless refreshed from a controlled data export. This avoids mixing stale or unsourced valuation data into a publication-style comp table.
 
+## Content audit policy
+
+The content audit ledgers separate verified facts, reported facts, analyst inferences, assumptions, stale items and unknowns. Company identity, listing status, business description and segment assignment should be tied to CIQ, exchange, company IR or filings before a row is treated as decision-grade. Priority labels and cycle reads are analyst judgments and should remain labeled as such even after source checks.
+
 ## Debate map
 
 The Variant Perception / Key Debates layer is designed as the bridge from industry taxonomy to investment work. It frames consensus, variant questions, winners/risks, monitoring signals and falsifiers across AI capex, ASIC vs GPU, HBM, advanced packaging, China localization, WFE, optical, AI infrastructure and auto/industrial cycles.
@@ -37,6 +41,8 @@ The Variant Perception / Key Debates layer is designed as the bridge from indust
 - Segment scenario variable rows: 16
 - Official market context rows: 6
 - Data governance layers: 4
+- Content audit company ledger rows: 307
+- Content audit segment ledger rows: 16
 - Segment KPI monitor entries: 16
 - Model architecture modules: 6
 - Analyst glossary terms: 20

@@ -15,8 +15,11 @@ Run date: 2026-06-18
 - Demand cycle guides: 6
 - Supply-chain relationship edges: 15
 - Value-chain logic edges: 32
+- Supply-demand adjacency edges: 64
 - Value-chain scenario maps: 6
-- HTML structure: multi-page entry + 5 task pages + single-page archive.
+- Content audit company ledger rows: 307
+- Content audit segment ledger rows: 16
+- HTML structure: multi-page entry + 6 task pages + single-page archive.
 - End-market crosswalks: 6
 - Regional lenses: 7
 - Coverage cockpit segment summaries: 16
@@ -61,6 +64,10 @@ Run date: 2026-06-18
   - Segment Playbooks: present
   - Segment KPI Monitor: present
   - Coverage Build Roadmap: present
+- pages/content_audit.html: present
+  - Content Audit: present
+  - Audit Rules: present
+  - Company Audit Ledger: present
 - pages/data_sources.html: present
   - Official Market Context: present
   - Data Governance Layers: present
