@@ -20,6 +20,7 @@ Run date: 2026-06-18
 - Content audit company ledger rows: 307
 - Content audit segment ledger rows: 16
 - Value-chain Core-name audit rows: 139
+- Listing-market buckets: {'A股': 57, '港股': 8, 'A股/港股': 3, '台股': 58, '日股': 32, '韩股': 22, '美股': 93, '美股/台股': 4, '美股/加拿大': 1, '欧股': 18, '英股': 2, '新加坡股': 4, '马股': 5}
 - HTML structure: multi-page entry + 6 task pages + single-page archive.
 - End-market crosswalks: 6
 - Regional lenses: 7
@@ -60,6 +61,8 @@ Run date: 2026-06-18
   - searchBox: present
   - Coverage Universe: present
   - deepLinkCompanyKey: present
+  - Listing market: present
+  - All listing markets: present
 - pages/framework.html: present
   - End-Market Exposure Matrix: present
   - Bull / Base / Bear Scenario Variables: present
@@ -73,6 +76,7 @@ Run date: 2026-06-18
   - Audit Rules: present
   - Company Audit Ledger: present
   - Value-chain Core-name audit: present
+  - All listing markets: present
 - pages/data_sources.html: present
   - Official Market Context: present
   - Data Governance Layers: present
