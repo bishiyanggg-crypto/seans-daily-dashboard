@@ -4,6 +4,21 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Semi Tech Industry Mapping | 2026-06-18</title>
+
+  <script>
+  (function() {
+    const AUTH_KEY = 'semiTechMappingAuth';
+    const LOGIN_URL = 'login.html';
+    try {
+      const raw = localStorage.getItem(AUTH_KEY);
+      const auth = raw ? JSON.parse(raw) : null;
+      if (auth && auth.user === 'sean' && Number(auth.expiresAt) > Date.now()) return;
+    } catch (error) {}
+    try { localStorage.removeItem(AUTH_KEY); } catch (error) {}
+    location.replace(LOGIN_URL + '?next=' + encodeURIComponent(location.href));
+  })();
+  </script>
+
   <style>
     :root {
       --bg: #f5f7f6;

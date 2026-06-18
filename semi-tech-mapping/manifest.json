@@ -17,7 +17,7 @@
   "value_chain_logic_edges": 32,
   "supply_demand_edges": 64,
   "value_chain_scenarios": 6,
-  "html_pages": 9,
+  "html_pages": 10,
   "content_audit_company_rows": 317,
   "content_audit_segment_rows": 16,
   "value_chain_core_name_audit_rows": 139,
@@ -39,6 +39,7 @@
   "ciq_refresh_template_core_rows": 139,
   "source_ledger_entries": 10,
   "files": [
+    "login.html",
     "semi_industry_mapping.html",
     "index.html",
     "single_page_archive.html",
