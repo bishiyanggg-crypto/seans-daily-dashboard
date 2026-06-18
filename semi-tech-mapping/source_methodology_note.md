@@ -26,8 +26,8 @@ The Variant Perception / Key Debates layer is designed as the bridge from indust
 
 ## Counts
 
-- Total companies: 307
-- Priority: {'Core': 139, 'Watchlist': 83, 'Important': 85}
+- Total companies: 317
+- Priority: {'Core': 139, 'Important': 92, 'Watchlist': 86}
 - Segment playbooks: 16
 - Segment value-pool scorecards: 16
 - Segment cycle guides: 16
@@ -41,7 +41,7 @@ The Variant Perception / Key Debates layer is designed as the bridge from indust
 - Segment scenario variable rows: 16
 - Official market context rows: 6
 - Data governance layers: 4
-- Content audit company ledger rows: 307
+- Content audit company ledger rows: 317
 - Content audit segment ledger rows: 16
 - Segment KPI monitor entries: 16
 - Model architecture modules: 6
@@ -53,11 +53,11 @@ The Variant Perception / Key Debates layer is designed as the bridge from indust
 - Source ledger entries: 10
 - Segment counts:
   - Adjacent Infra / Industrial Enablers: 28
-  - Analog / Power / Mixed Signal: 24
+  - Analog / Power / Mixed Signal: 25
   - Compute / AI / Logic Chips: 13
-  - EDA / IP / Design Enablement: 13
+  - EDA / IP / Design Enablement: 14
   - EMS / ODM / Systems: 18
-  - Foundry / IDM Manufacturing: 11
+  - Foundry / IDM Manufacturing: 12
   - Materials / Wafers / Chemicals / Gases: 33
   - Memory / Storage Semiconductors: 14
   - Mobile / RF / Connectivity: 26
@@ -67,7 +67,7 @@ The Variant Perception / Key Debates layer is designed as the bridge from indust
   - Passives / Components / Sensors: 12
   - Process Control / Test / Metrology: 20
   - Semicap Equipment: 27
-  - Substrate / PCB / Interconnect: 22
+  - Substrate / PCB / Interconnect: 29
 
 ## Suggested next CIQ merge
 

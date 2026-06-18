@@ -4,23 +4,27 @@ Run date: 2026-06-18
 
 ## Automated checks performed
 
-- Company rows: 307
+- Company rows: 317
 - Core rows: 139
-- Important rows: 85
-- Watchlist rows: 83
+- Important rows: 92
+- Watchlist rows: 86
 - Segments: 16
 - Segment playbooks: 16
 - Segment value-pool scorecards: 16
 - Segment cycle guides: 16
 - Demand cycle guides: 6
+- Segment cycle-position judgments: 16
+- Segment investment-logic briefs: 16
+- Demand investment-logic briefs: 6
+- Segment upstream-stack maps: 16
 - Supply-chain relationship edges: 15
 - Value-chain logic edges: 32
 - Supply-demand adjacency edges: 64
 - Value-chain scenario maps: 6
-- Content audit company ledger rows: 307
+- Content audit company ledger rows: 317
 - Content audit segment ledger rows: 16
 - Value-chain Core-name audit rows: 139
-- Listing-market buckets: {'A股': 57, '港股': 8, 'A股/港股': 3, '台股': 58, '日股': 32, '韩股': 22, '美股': 93, '美股/台股': 4, '美股/加拿大': 1, '欧股': 18, '英股': 2, '新加坡股': 4, '马股': 5}
+- Listing-market buckets: {'A股': 63, '港股': 9, 'A股/港股': 3, '台股': 59, '日股': 34, '韩股': 22, '美股': 93, '美股/台股': 4, '美股/加拿大': 1, '欧股': 18, '英股': 2, '新加坡股': 4, '马股': 5}
 - HTML structure: multi-page entry + 6 task pages + single-page archive.
 - End-market crosswalks: 6
 - Regional lenses: 7
@@ -56,6 +60,9 @@ Run date: 2026-06-18
   - Value-Chain: present
   - company-link: present
   - Core-name audit: present
+  - Investment logic: present
+  - Deeper upstream: present
+  - 周期位置: present
 - pages/coverage_universe.html: present
   - companyTable: present
   - searchBox: present
@@ -65,6 +72,9 @@ Run date: 2026-06-18
   - All listing markets: present
   - multi-select: present
   - filterState: present
+  - Market attention / 投资逻辑: present
+  - Consensus & recent trade: present
+  - Upstream stack: present
 - pages/framework.html: present
   - End-Market Exposure Matrix: present
   - Bull / Base / Bear Scenario Variables: present
