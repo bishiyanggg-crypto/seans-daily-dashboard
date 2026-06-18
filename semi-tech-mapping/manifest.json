@@ -12,6 +12,7 @@
   "segment_investment_logic_entries": 16,
   "demand_investment_logic_entries": 6,
   "segment_upstream_stack_entries": 16,
+  "clickable_upstream_input_nodes": 33,
   "chain_edges": 15,
   "value_chain_logic_edges": 32,
   "supply_demand_edges": 64,

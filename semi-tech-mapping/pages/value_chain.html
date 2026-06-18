@@ -619,6 +619,30 @@ h1 {
   font-size:10px;
   line-height:1.35;
 }
+.rel-node-field {
+  display:block;
+  margin-top:6px;
+  padding-top:6px;
+  border-top:1px solid #edf0f5;
+}
+.rel-node-field em {
+  display:block;
+  margin-bottom:2px;
+  color:#334155;
+  font-size:9px;
+  font-style:normal;
+  font-weight:900;
+  letter-spacing:0;
+  text-transform:uppercase;
+}
+.rel-node-field small {
+  margin-top:0;
+  color:#475569;
+  font-size:10px;
+}
+.rel-node-field.companies {
+  padding-bottom:1px;
+}
 .rel-text {
   margin-top:6px;
   border:1px dashed #c8d6d2;
@@ -939,13 +963,28 @@ h1 {
   border-top:1px solid var(--line);
 }
 .logic-wrap {
-  grid-template-columns:minmax(0,1.05fr) minmax(430px,.95fr);
+  grid-template-columns:1fr;
 }
 .value-page .logic-canvas,
 .value-page .detail-pane {
   box-shadow:none;
   border:1px solid var(--line);
   background:#fff;
+}
+.value-page .detail-pane {
+  position:static;
+  max-height:min(72vh, 760px);
+  overflow-y:auto;
+  overflow-x:hidden;
+  scrollbar-gutter:stable;
+  scroll-behavior:smooth;
+}
+.detail-scroll-hint {
+  margin:2px 0 -8px;
+  color:#64748b;
+  font-size:11px;
+  font-weight:800;
+  text-transform:uppercase;
 }
 .value-page .logic-grid {
   gap:0;
@@ -991,8 +1030,58 @@ h1 {
 .value-page .map-node.demand {
   border-left-color:var(--amber);
 }
+.value-page .map-node .scenario-cue {
+  display:block;
+  margin-top:6px;
+  color:#a16207;
+  font-size:10px;
+  font-weight:800;
+  text-transform:uppercase;
+}
+.value-page .map-node.dimmed .scenario-cue {
+  opacity:.45;
+}
+.value-page .map-node.input.compact {
+  min-height:50px;
+  padding:7px 9px;
+  border-left-color:#0f766e;
+  border-bottom:1px solid #edf0f5;
+  background:#f8fbf9;
+}
+.value-page .map-node.input.compact:hover,
+.value-page .map-node.input.compact.active {
+  background:#ecfdf5;
+  border-left-color:#0f766e;
+}
+.value-page .map-node.input.compact b {
+  font-size:12px;
+}
+.value-page .map-node.input.compact small {
+  font-size:10px;
+  line-height:1.35;
+}
 .value-page .detail-pane {
   padding:0;
+}
+.value-page .detail-sticky-head {
+  position:sticky;
+  top:0;
+  z-index:12;
+  padding:16px 16px 12px;
+  background:rgba(255,255,255,.97);
+  border-bottom:1px solid var(--line);
+  box-shadow:0 8px 18px rgba(15,23,42,.06);
+  backdrop-filter:blur(8px);
+}
+.value-page .detail-sticky-head h3 {
+  margin:0 0 4px;
+  font-size:20px;
+}
+.value-page .detail-sticky-head p {
+  margin:0;
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.55;
 }
 .value-page .detail-pane > h3,
 .value-page .detail-pane > p,
@@ -1071,6 +1160,34 @@ h1 {
   display:grid;
   gap:6px;
 }
+.upstream-group-card {
+  border:1px solid #d7e1de;
+  border-radius:8px;
+  background:#fff;
+  overflow:hidden;
+}
+.upstream-group-head {
+  display:grid;
+  gap:3px;
+  padding:8px 10px;
+  border-bottom:1px solid #edf0f5;
+  background:#f8fbfa;
+}
+.upstream-group-head b {
+  color:#0f172a;
+  font-size:12px;
+  line-height:1.3;
+}
+.upstream-group-head span {
+  color:var(--muted);
+  font-size:11px;
+  line-height:1.4;
+}
+.upstream-group-items {
+  display:grid;
+  gap:6px;
+  padding:7px;
+}
 .flow-row.foundation .flow-label span {
   color:#0f766e;
   border-color:#99d5c7;
@@ -1098,9 +1215,10 @@ h1 {
   border-left-color:#0f766e;
   background:#f7fbf9;
 }
-.value-page .rel-node.stack-layer span {
+.value-page .rel-node.stack-layer .company-pill {
   color:#1d4ed8;
-  font-weight:750;
+  border-color:#bfd4ff;
+  background:#f4f7ff;
 }
 .value-page .rel-text {
   margin:0;
@@ -1199,7 +1317,15 @@ h1 {
   padding:12px 16px;
   background:#fff;
 }
+.primer-panel {
+  border-top:1px solid var(--line);
+  padding:12px 16px;
+  background:#fbfcfb;
+}
 .logic-panel .mini-label {
+  margin:0 0 8px;
+}
+.primer-panel .mini-label {
   margin:0 0 8px;
 }
 .logic-bullets {
@@ -1208,12 +1334,26 @@ h1 {
   margin:0;
   padding-left:18px;
 }
+.primer-bullets {
+  display:grid;
+  gap:9px;
+  margin:0;
+  padding-left:18px;
+}
 .logic-bullets li {
   color:var(--muted);
   font-size:13px;
   line-height:1.5;
 }
+.primer-bullets li {
+  color:#475569;
+  font-size:13px;
+  line-height:1.55;
+}
 .logic-bullets b {
+  color:#111827;
+}
+.primer-bullets b {
   color:#111827;
 }
 .logic-caveat {
@@ -1253,6 +1393,32 @@ h1 {
   gap:6px;
   margin-top:2px;
 }
+.company-pill-row {
+  display:flex;
+  flex-wrap:wrap;
+  gap:4px;
+  margin-top:3px;
+}
+.company-pill,
+.rel-node .company-pill {
+  display:inline-flex;
+  align-items:center;
+  max-width:100%;
+  min-height:18px;
+  margin-top:0;
+  padding:2px 6px;
+  border:1px solid #cfe0dc;
+  border-radius:999px;
+  background:#f7fbf9;
+  color:#0f766e;
+  font-size:10px;
+  font-weight:850;
+  line-height:1.15;
+}
+.muted-inline {
+  color:var(--muted);
+  font-size:10px;
+}
 .company-link {
   display:inline-flex;
   align-items:center;
@@ -1275,6 +1441,19 @@ h1 {
   color:var(--muted);
   background:#f8faf9;
   pointer-events:none;
+}
+.inline-node-link {
+  border:0;
+  background:transparent;
+  color:var(--blue);
+  font:inherit;
+  font-weight:850;
+  padding:0;
+  cursor:pointer;
+  text-align:left;
+}
+.inline-node-link:hover {
+  text-decoration:underline;
 }
 .audit-pass {
   color:#0f766e;
@@ -1586,6 +1765,7 @@ tbody tr:hover {
   .value-page .scenario-meta { grid-template-columns:1fr; }
   .value-page .scenario-meta div { border-left:0; border-top:1px solid var(--line); }
   .value-page .scenario-meta div:first-child { border-top:0; }
+  .value-page .logic-grid { grid-template-columns:repeat(3,minmax(0,1fr)); }
   .stage-workbench { grid-template-columns:1fr; }
   .stage-rail {
     grid-template-columns:repeat(2,minmax(0,1fr));
@@ -1608,7 +1788,8 @@ tbody tr:hover {
   .value-page .path-step { border-left:0; border-top:1px solid var(--line); }
   .value-page .path-step:first-child { border-top:0; }
   .controls { grid-template-columns:1fr 1fr; }
-  .detail-pane { position:static; max-height:none; }
+  .detail-pane { position:static; }
+  .value-page .detail-pane { max-height:min(70vh, 680px); overflow-y:auto; }
 }
 @media (max-width:720px) {
   body { padding-top:118px; }
@@ -1669,6 +1850,7 @@ tbody tr:hover {
   .path-panel-head p { margin-top:8px; }
   .logic-canvas { min-height:0; }
   .logic-grid { min-width:0; grid-template-columns:1fr; }
+  .value-page .detail-pane { max-height:68vh; }
   .edge-svg { display:none; }
   table { min-width:760px; }
   .section-title { display:block; }
@@ -1734,12 +1916,13 @@ tbody tr:hover {
   </section>
   <section class="path-panel" id="scenarioPanel"></section>
   <section class="workspace-label">
-    <div><b>Industry node index</b><span>点击下方任一产业节点，右侧 inspector 会同步更新。高亮节点代表当前场景链或相邻上下游。</span></div>
+    <div><b>Integrated industry map</b><span>主产业节点和直接上游输入已合并去重。点击任一主节点或上游小节点，下面 inspector 会同步更新。</span></div>
   </section>
   <section class="logic-wrap">
     <div class="logic-canvas" id="logicCanvas">
-      <div class="logic-grid" id="logicGrid"><div class="logic-col"><h3>Demand pull<span>终端需求先决定系统架构和BOM</span></h3><button class="map-node demand" data-node="demand_ai_dc"><b>AI Data Center</b><small>accelerated computing / AI rack</small></button><button class="map-node demand" data-node="demand_smartphone"><b>Smartphone / Consumer</b><small>handset, PC, consumer electronics</small></button><button class="map-node demand" data-node="demand_auto_industrial"><b>Auto / Industrial</b><small>vehicle, industrial, long-cycle design-in</small></button><button class="map-node demand" data-node="demand_fab_localization"><b>Fab Localization</b><small>sovereignty / capacity buildout</small></button><button class="map-node demand" data-node="demand_networking_optical"><b>Networking / Optical</b><small>data movement / port-speed migration</small></button><button class="map-node demand" data-node="demand_storage_bw"><b>Storage / Memory BW</b><small>HBM, DRAM, NAND, enterprise storage</small></button></div><div class="logic-col"><h3>Design / architecture<span>系统需求转化为芯片规格</span></h3><button class="map-node" data-node="eda_ip"><b>EDA / IP / Design Enablement</b><small>EDA, IP, design services · 14 names</small></button><button class="map-node" data-node="fabless_compute"><b>Compute / AI / Logic Chips</b><small>GPU, CPU, ASIC, FPGA, accelerators · 13 names</small></button><button class="map-node" data-node="networking_silicon"><b>Networking Silicon / SerDes / Data Movement</b><small>switch ASIC, NIC, DPU, DSP, retimer · 11 names</small></button><button class="map-node" data-node="mobile_rf_connectivity"><b>Mobile / RF / Connectivity</b><small>mobile SoC, RF, Wi-Fi, connectivity · 26 names</small></button><button class="map-node" data-node="analog_power"><b>Analog / Power / Mixed Signal</b><small>analog, power, mixed signal, sensor IC · 25 names</small></button></div><div class="logic-col"><h3>Wafer manufacturing<span>制造能力、良率和材料约束</span></h3><button class="map-node" data-node="wfe"><b>Semicap Equipment</b><small>lithography, deposition, etch, implant, clean · 27 names</small></button><button class="map-node" data-node="materials_wafers"><b>Materials / Wafers / Chemicals / Gases</b><small>silicon wafers, gases, photoresist, CMP, wet chemicals · 33 names</small></button><button class="map-node" data-node="process_control_test"><b>Process Control / Test / Metrology</b><small>metrology, inspection, ATE, probe cards · 20 names</small></button><button class="map-node" data-node="foundry_idm"><b>Foundry / IDM Manufacturing</b><small>foundry, IDM, specialty fabs · 12 names</small></button><button class="map-node" data-node="memory_storage"><b>Memory / Storage Semiconductors</b><small>DRAM, NAND, HBM, storage controllers · 14 names</small></button></div><div class="logic-col"><h3>Package / board<span>先进封装、基板、PCB和组件</span></h3><button class="map-node" data-node="osat_packaging"><b>OSAT / Advanced Packaging</b><small>assembly, test, advanced packaging · 21 names</small></button><button class="map-node" data-node="substrate_pcb"><b>Substrate / PCB / Interconnect</b><small>ABF substrate, HDI PCB, high-speed boards · 29 names</small></button><button class="map-node" data-node="passives_components"><b>Passives / Components / Sensors</b><small>passives, connectors, sensors, modules · 12 names</small></button></div><div class="logic-col"><h3>Data movement<span>AI集群里的数据传输层</span></h3><button class="map-node" data-node="optical_photonics"><b>Optical / Photonics</b><small>optical modules, lasers, DSP, silicon photonics · 14 names</small></button></div><div class="logic-col"><h3>Systems / deployment<span>从部件到rack、服务器和基础设施</span></h3><button class="map-node" data-node="ems_odm_systems"><b>EMS / ODM / Systems</b><small>server ODM, EMS, networking and storage systems · 18 names</small></button><button class="map-node" data-node="adjacent_infra"><b>Adjacent Infra / Industrial Enablers</b><small>power, cooling, precision components, automation · 28 names</small></button></div></div>
+      <div class="logic-grid primary-index" id="logicGrid"><div class="logic-col"><h3>Demand pull<span>终端需求先决定系统架构和BOM</span></h3><button class="map-node demand scenario-entry" data-node="demand_ai_dc" data-demand-scenario="ai_rack" title="Click to load this demand chain"><b>AI Data Center</b><small>accelerated computing / AI rack</small><span class="scenario-cue">load chain</span></button><button class="map-node demand scenario-entry" data-node="demand_smartphone" data-demand-scenario="smartphone" title="Click to load this demand chain"><b>Smartphone / Consumer</b><small>handset, PC, consumer electronics</small><span class="scenario-cue">load chain</span></button><button class="map-node demand scenario-entry" data-node="demand_auto_industrial" data-demand-scenario="auto_industrial" title="Click to load this demand chain"><b>Auto / Industrial</b><small>vehicle, industrial, long-cycle design-in</small><span class="scenario-cue">load chain</span></button><button class="map-node demand scenario-entry" data-node="demand_fab_localization" data-demand-scenario="fab_localization" title="Click to load this demand chain"><b>Fab Localization</b><small>sovereignty / capacity buildout</small><span class="scenario-cue">load chain</span></button><button class="map-node demand scenario-entry" data-node="demand_networking_optical" data-demand-scenario="networking_optical" title="Click to load this demand chain"><b>Networking / Optical</b><small>data movement / port-speed migration</small><span class="scenario-cue">load chain</span></button><button class="map-node demand scenario-entry" data-node="demand_storage_bw" data-demand-scenario="memory_bandwidth" title="Click to load this demand chain"><b>Storage / Memory BW</b><small>HBM, DRAM, NAND, enterprise storage</small><span class="scenario-cue">load chain</span></button></div><div class="logic-col"><h3>Design / architecture<span>系统需求转化为芯片规格</span></h3><button class="map-node input compact" data-node="input_eda_ip_0" title="GPU/CPU clusters for simulation and emulation · EDA workloads and AI-assisted design need more compute intensity."><b>Compute infrastructure</b><small>input → EDA / IP / Design Enablement</small></button><button class="map-node input compact" data-node="input_eda_ip_1" title="PDK, reference flow, IP qualification · EDA value rises when tied to advanced-node adoption."><b>Foundry ecosystem</b><small>input → EDA / IP / Design Enablement</small></button><button class="map-node" data-node="eda_ip"><b>EDA / IP / Design Enablement</b><small>EDA, IP, design services · 14 names</small></button><button class="map-node" data-node="fabless_compute"><b>Compute / AI / Logic Chips</b><small>GPU, CPU, ASIC, FPGA, accelerators · 13 names</small></button><button class="map-node" data-node="networking_silicon"><b>Networking Silicon / SerDes / Data Movement</b><small>switch ASIC, NIC, DPU, DSP, retimer · 11 names</small></button><button class="map-node" data-node="mobile_rf_connectivity"><b>Mobile / RF / Connectivity</b><small>mobile SoC, RF, Wi-Fi, connectivity · 26 names</small></button><button class="map-node" data-node="analog_power"><b>Analog / Power / Mixed Signal</b><small>analog, power, mixed signal, sensor IC · 25 names</small></button></div><div class="logic-col"><h3>Wafer manufacturing<span>制造能力、良率和材料约束</span></h3><button class="map-node input compact" data-node="input_wfe_0" title="Vacuum valves, RF generators, motion stages, pumps, ceramics · Subsystem constraints can cap equipment delivery and margins."><b>Precision subsystems</b><small>input → Semicap Equipment</small></button><button class="map-node" data-node="wfe"><b>Semicap Equipment</b><small>lithography, deposition, etch, implant, clean · 27 names</small></button><button class="map-node input compact" data-node="input_materials_wafers_0" title="High-purity gases, precursors, resins, solvents, metals · Purity and qualification barriers drive pricing power."><b>Feedstocks and specialty chemistry</b><small>input → Materials / Wafers / Chemicals / Gases</small></button><button class="map-node input compact" data-node="input_materials_wafers_1" title="Polysilicon, quartz, graphite, SiC powder/crystals · Wafer and compound substrate cycles depend on upstream purity and capacity."><b>Substrate inputs</b><small>input → Materials / Wafers / Chemicals / Gases</small></button><button class="map-node" data-node="materials_wafers"><b>Materials / Wafers / Chemicals / Gases</b><small>silicon wafers, gases, photoresist, CMP, wet chemicals · 33 names</small></button><button class="map-node input compact" data-node="input_process_control_test_0" title="Probe cards, sockets, contactors, handlers · Advanced packages and HBM raise test time and consumable intensity."><b>Probe and consumables</b><small>input → Process Control / Test / Metrology</small></button><button class="map-node input compact" data-node="input_process_control_test_1" title="Optics, sensors, precision stages, software analytics · Yield bottlenecks increase process-control wallet share."><b>Inspection inputs</b><small>input → Process Control / Test / Metrology</small></button><button class="map-node" data-node="process_control_test"><b>Process Control / Test / Metrology</b><small>metrology, inspection, ATE, probe cards · 20 names</small></button><button class="map-node" data-node="foundry_idm"><b>Foundry / IDM Manufacturing</b><small>foundry, IDM, specialty fabs · 12 names</small></button><button class="map-node input compact" data-node="input_memory_storage_1" title="HBM stacking, probe cards, ATE, substrates · HBM creates non-memory bottlenecks in back-end flow."><b>Packaging and test</b><small>input → Memory / Storage Semiconductors</small></button><button class="map-node" data-node="memory_storage"><b>Memory / Storage Semiconductors</b><small>DRAM, NAND, HBM, storage controllers · 14 names</small></button></div><div class="logic-col"><h3>Package / board<span>先进封装、基板、PCB和组件</span></h3><button class="map-node input compact" data-node="input_osat_packaging_0" title="ABF/BT substrate, leadframe, mold compound, underfill, bonding wire · Advanced packaging capacity is useless without qualified materials."><b>Package materials</b><small>input → OSAT / Advanced Packaging</small></button><button class="map-node input compact" data-node="input_osat_packaging_1" title="Bonders, dicing, plating, inspection, test handlers · HBM/2.5D complexity raises equipment and yield-control intensity."><b>Back-end tools</b><small>input → OSAT / Advanced Packaging</small></button><button class="map-node" data-node="osat_packaging"><b>OSAT / Advanced Packaging</b><small>assembly, test, advanced packaging · 21 names</small></button><button class="map-node input compact" data-node="input_substrate_pcb_0" title="Copper foil, resin, prepreg, CCL, ABF/BT resin · Low-loss material mix drives AI PCB ASP, yield and margin."><b>Copper and resin stack</b><small>input → Substrate / PCB / Interconnect</small></button><button class="map-node input compact" data-node="input_substrate_pcb_1" title="Electronic glass cloth, glass fiber, fillers · High-speed boards need lower Dk/Df, tighter dimensional stability and better thermal performance."><b>Glass and reinforcement</b><small>input → Substrate / PCB / Interconnect</small></button><button class="map-node input compact" data-node="input_substrate_pcb_2" title="Drilling, plating chemicals, laser direct imaging, AOI · Layer count and yield are equipment/material constrained."><b>PCB process inputs</b><small>input → Substrate / PCB / Interconnect</small></button><button class="map-node" data-node="substrate_pcb"><b>Substrate / PCB / Interconnect</b><small>ABF substrate, HDI PCB, high-speed boards · 29 names</small></button><button class="map-node input compact" data-node="input_passives_components_0" title="Ceramic powder, electrodes, conductive paste, ferrite, rare metals · Component pricing and quality depend on material cost and process know-how."><b>Material inputs</b><small>input → Passives / Components / Sensors</small></button><button class="map-node" data-node="passives_components"><b>Passives / Components / Sensors</b><small>passives, connectors, sensors, modules · 12 names</small></button></div><div class="logic-col"><h3>Data movement<span>AI集群里的数据传输层</span></h3><button class="map-node input compact" data-node="input_optical_photonics_0" title="Lasers, EML/VCSEL, lenses, isolators, FAU, TOSA/ROSA · Module cost and yield depend on component supply and coupling precision."><b>Optical components</b><small>input → Optical / Photonics</small></button><button class="map-node input compact" data-node="input_optical_photonics_1" title="Optical DSP, silicon photonics, low-loss PCB, connectors · 800G/1.6T needs silicon and board readiness, not just module assembly."><b>Silicon and board inputs</b><small>input → Optical / Photonics</small></button><button class="map-node" data-node="optical_photonics"><b>Optical / Photonics</b><small>optical modules, lasers, DSP, silicon photonics · 14 names</small></button></div><div class="logic-col"><h3>Systems / deployment<span>从部件到rack、服务器和基础设施</span></h3><button class="map-node" data-node="ems_odm_systems"><b>EMS / ODM / Systems</b><small>server ODM, EMS, networking and storage systems · 18 names</small></button><button class="map-node input compact" data-node="input_adjacent_infra_0" title="Transformers, switchgear, UPS, power distribution, grid equipment · Power availability can bottleneck AI deployments after chip supply improves."><b>Electrical supply chain</b><small>input → Adjacent Infra / Industrial Enablers</small></button><button class="map-node input compact" data-node="input_adjacent_infra_1" title="Liquid cooling, heat exchangers, cold plates, cables, connectors · Power density raises content per rack and changes system architecture."><b>Thermal and interconnect</b><small>input → Adjacent Infra / Industrial Enablers</small></button><button class="map-node" data-node="adjacent_infra"><b>Adjacent Infra / Industrial Enablers</b><small>power, cooling, precision components, automation · 28 names</small></button></div></div>
     </div>
+    <div class="detail-scroll-hint">Inspector / 正文详情区可上下滚动</div>
     <aside class="panel detail-pane" id="nodeDetail"></aside>
   </section>
 </main>
@@ -1759,8 +1942,43 @@ const DEMAND_CYCLES = {"demand_ai_dc":{"cycle_type":"AI capex / power-constraine
 const SEGMENT_INVESTMENT_LOGIC = {"eda_ip":{"consensus":"Consensus sees EDA/IP as a quality compounder: advanced nodes, AI-assisted design and custom ASIC complexity should sustain high recurring growth.","recent_performance":"The group has generally traded as a scarcity/quality software-like semi asset; near-term moves are driven by AI ASIC design intensity, RPO/ARR quality and M&A/regulatory updates.","trade_logic":"Own on design-start acceleration and AI/ASIC complexity; be cautious when valuation embeds a straight-line AI software multiple without evidence of incremental pricing or royalty capture."},"fabless_compute":{"consensus":"Consensus remains bullish on AI accelerators and custom silicon, with NVIDIA/Broadcom/AMD/ASIC beneficiaries viewed as the primary AI compute profit pool.","recent_performance":"Recent performance has been led by AI capex revisions, accelerator backlog, HBM/CoWoS supply and hyperscaler commentary; pullbacks usually center on ROI fatigue or ASIC substitution.","trade_logic":"The active trade is still AI compute durability: long names with proven backlog and ecosystem control, but watch whether bottlenecks shift from chips to power/networking and whether estimates already discount peak scarcity."},"mobile_rf_connectivity":{"consensus":"Consensus expects a gradual handset/consumer recovery, but does not yet underwrite a strong new supercycle outside selected AI edge or premium-content pockets.","recent_performance":"Stocks have been more mixed than AI infrastructure names; drivers are Android sell-through, Apple build plans, RF/CIS content and inventory normalization.","trade_logic":"The trade is selective restock-to-recovery: focus on share gain and content winners, avoid confusing channel replenishment with sustainable end-demand acceleration."},"networking_silicon":{"consensus":"Consensus believes AI scale-out increases the value of switch ASIC, retimer, SerDes, DPU/NIC and optical DSP content.","recent_performance":"Performance has been strong where investors see confirmed hyperscaler awards and port-speed migration; volatility comes from customer concentration and architecture shifts.","trade_logic":"The trade is data-movement bottleneck migration: if accelerator supply improves, networking silicon and interconnect become the next constraint; falsify with weak port-speed adoption or self-designed silicon displacement."},"analog_power":{"consensus":"Consensus expects analog/power to bottom as industrial and auto inventories normalize, but the timing is still debated.","recent_performance":"The group has lagged AI semis; stock moves are driven by order cancellations, distributor inventory, SiC pricing and evidence of utilization stabilization.","trade_logic":"The trade is early-cycle recovery with quality dispersion: buy when book-to-bill and lead times stabilize, but avoid low-end China price competition and overcapitalized SiC exposure."},"memory_storage":{"consensus":"Consensus is positive on HBM and tightening DRAM/NAND supply; the debate is how much of the price spike is structural versus cyclical.","recent_performance":"Memory names have been driven by HBM qualification, contract ASP increases, supply shortages and capex discipline; consumer OEM pressure from rising memory costs is a cross-check.","trade_logic":"The trade is HBM structural mix plus commodity pricing leverage; the exit risk is a capex response or hidden inventory once pricing gets too good."},"foundry_idm":{"consensus":"Consensus separates leading-edge AI/HPC foundry scarcity from mature-node overcapacity; TSMC remains the anchor while China mature foundry is a utilization/localization debate.","recent_performance":"Leading-edge exposure has been supported by AI/HPC capex and advanced packaging, while mature foundry trades on utilization, pricing and policy-driven demand.","trade_logic":"The trade is node bifurcation: own scarce advanced-node/packaging leverage; treat mature-node localization as a cyclical utilization trade unless ROIC is proven."},"wfe":{"consensus":"Consensus has turned more constructive on WFE as AI, HBM and memory capex pull equipment intensity higher.","recent_performance":"Recent strength has been driven by upward WFE TAM expectations, AI memory spending and price-target revisions for equipment leaders.","trade_logic":"The trade is AI infrastructure capex broadening from chips into tools; watch China pull-forward, export controls and whether backlog converts without margin dilution."},"process_control_test":{"consensus":"Consensus sees metrology/inspection/ATE/probe as beneficiaries of rising process and package complexity, not just wafer volume.","recent_performance":"Performance follows advanced-node yield intensity, HBM test time, probe-card ASP and memory/OSAT capex signals.","trade_logic":"The trade is complexity intensity: favor companies where test hours, probe card content or inspection steps rise per chip; avoid assuming all WFE strength flows equally to test."},"materials_wafers":{"consensus":"Consensus expects gradual recovery with advanced materials outperforming commodity wafers and chemicals.","recent_performance":"Stock moves are tied to wafer starts, China localization, qualification wins and pricing under long-term agreements.","trade_logic":"The trade is qualification-led share gain: materials names work when new process wins translate into volumes, but lag equipment if fab starts are delayed."},"osat_packaging":{"consensus":"Consensus is very positive on advanced packaging scarcity, while traditional OSAT remains more cyclical and margin-sensitive.","recent_performance":"Advanced packaging beneficiaries have traded on CoWoS/HBM capacity, customer reservations and capex plans; legacy OSAT still needs utilization recovery.","trade_logic":"The trade is packaging bottleneck migration: own scarce advanced packaging/test exposure, but track whether foundry captive packaging captures the economics."},"substrate_pcb":{"consensus":"Consensus is increasingly constructive on AI server PCB, ABF substrates and low-loss CCL, while consumer PCB is viewed as a separate cyclical recovery.","recent_performance":"The strongest moves have come from AI server layer-count upgrades, low-loss material mix and optical/networking demand; risks are ASP erosion and capacity expansion.","trade_logic":"The trade is rack-level content growth: follow ABF lead time, high-layer PCB ASP, electronic glass/copper foil/CCL pricing and customer qualification."},"optical_photonics":{"consensus":"Consensus sees optical as one of the most direct second-derivative AI beneficiaries through 800G/1.6T, silicon photonics and CPO/NPO.","recent_performance":"The group has had sharp rallies and pullbacks; recent moves are driven by Nvidia/hyperscaler partnerships, CPO timing concerns and module ASP assumptions.","trade_logic":"The trade is buy-the-bottleneck after de-risked awards, but respect valuation and ASP erosion; separate component/DSP/laser winners from commodity module assemblers."},"ems_odm_systems":{"consensus":"Consensus believes AI server/rack ODMs grow revenue rapidly, but debate centers on margin quality and working-capital burden.","recent_performance":"Performance follows hyperscaler order flow, GPU allocation, rack-scale integration wins and monthly revenue disclosures.","trade_logic":"The trade is AI system delivery proof: prefer ODMs with engineering content, cash conversion and diversified customers rather than pure low-margin pass-through."},"adjacent_infra":{"consensus":"Consensus increasingly views power, cooling, connectors and grid equipment as binding constraints for AI data-center growth.","recent_performance":"Power/cooling and interconnect names have traded strongly on backlog, power-density upgrades and data-center project awards.","trade_logic":"The trade is semiconductor demand spilling into physical infrastructure; watch project timing, margin mix and whether orders are double-counted across the supply chain."},"passives_components":{"consensus":"Consensus expects a slow recovery as distributor inventory normalizes, with high-end auto/server components stronger than commodity passives.","recent_performance":"Recent performance is more muted than AI infrastructure; drivers include MLCC lead times, auto/industrial orders and smartphone restocking.","trade_logic":"The trade is inventory bottom plus mix upgrade: look for pricing and utilization confirmation before treating restock as a durable cycle turn."}};
 const DEMAND_INVESTMENT_LOGIC = {"demand_ai_dc":{"consensus":"Consensus is that AI infrastructure remains the dominant semi investment theme, but the debate has moved from GPU scarcity to full-rack ROI, power and networking bottlenecks.","recent_performance":"Recent leadership has broadened from accelerators into HBM, WFE, optical, power/cooling and selected ODM/system names.","trade_logic":"The trade is bottleneck migration: follow where the next constraint moves across GPU, HBM, CoWoS, substrate/PCB, optics, power and cooling."},"demand_smartphone":{"consensus":"Consensus expects only a gradual consumer recovery, with selective upside from premium Android/iPhone content and edge AI.","recent_performance":"Performance has lagged AI infrastructure and is more tied to inventory normalization, build plans and China Android sell-through.","trade_logic":"The trade is restock-to-real-demand validation: require sell-through and ASP/mix proof before underwriting a durable cycle."},"demand_auto_industrial":{"consensus":"Consensus is cautious but bottoming: auto/industrial content is structurally attractive, yet near-term inventory remains a drag.","recent_performance":"Analog/power and passive names have been more muted, reacting to distributor inventory, EV/SiC pricing and industrial order trends.","trade_logic":"The trade is inventory bottom plus quality design-ins; avoid treating a one-quarter restock as a full industrial upcycle."},"demand_fab_localization":{"consensus":"Consensus sees localization as a durable policy theme, but differentiates true technology substitution from subsidy-led overcapacity.","recent_performance":"WFE/materials/localization names have moved on capex expectations, export-control headlines and domestic fab qualification progress.","trade_logic":"The trade is localization with proof: prioritize qualified tools/materials and real fab utilization, not just announced capacity."},"demand_networking_optical":{"consensus":"Consensus is positive on AI data-movement bottlenecks, especially 800G/1.6T, optical DSP, retimers and CPO/NPO optionality.","recent_performance":"Optical and networking names have rallied sharply but remain volatile around CPO timing, customer awards and ASP erosion.","trade_logic":"The trade is buy confirmed awards and architecture wins, while watching valuation and module commoditization."},"demand_storage_bw":{"consensus":"Consensus is bullish on HBM and tighter memory supply, but remains alert to capex response and commodity memory cyclicality.","recent_performance":"Memory and storage names have been driven by HBM qualification, DRAM/NAND price increases and long-term supply agreements.","trade_logic":"The trade is HBM structural scarcity plus commodity pricing leverage; watch when high prices start to destroy demand or trigger overbuild."}};
 const SEGMENT_UPSTREAM_STACK = {"eda_ip":[{"layer":"Compute infrastructure","products":"GPU/CPU clusters for simulation and emulation","why":"EDA workloads and AI-assisted design need more compute intensity.","companies":"NVIDIA, AMD, Intel, Dell, HPE"},{"layer":"Foundry ecosystem","products":"PDK, reference flow, IP qualification","why":"EDA value rises when tied to advanced-node adoption.","companies":"TSMC, Samsung Electronics, Intel, SMIC"}],"fabless_compute":[{"layer":"Foundry and package capacity","products":"Advanced-node wafers, CoWoS/2.5D, HBM integration","why":"Supply allocation determines shipment timing and gross margin.","companies":"TSMC, ASE, Amkor, Ibiden, Unimicron"},{"layer":"Memory and substrates","products":"HBM, ABF substrate, low-loss board materials","why":"Compute platforms can be bottlenecked by non-logic components.","companies":"SK hynix, Micron, Samsung Electronics, Nan Ya PCB, Elite Material"}],"mobile_rf_connectivity":[{"layer":"Specialty foundry","products":"RF SOI, BCD, CIS, DDI and mature-node capacity","why":"Mobile silicon content depends on specialty process availability.","companies":"TSMC, UMC, VIS, Hua Hong, Sony"},{"layer":"Module and passive inputs","products":"SAW/BAW filters, MLCC, substrates, HDI boards","why":"RF modules and handset boards are material-content intensive.","companies":"Murata, TDK, Yageo, Ibiden, Shennan Circuits"}],"networking_silicon":[{"layer":"SerDes/IP and foundry","products":"High-speed SerDes IP, advanced logic nodes","why":"Port-speed migration is silicon- and process-limited.","companies":"TSMC, Synopsys, Cadence, Alchip, GUC"},{"layer":"Board and optical inputs","products":"Low-loss PCB, retimer sockets, optical DSP/module ecosystem","why":"System bandwidth needs board and optical readiness.","companies":"Elite Material, Unimicron, Credo, MACOM, Coherent"}],"analog_power":[{"layer":"Specialty wafers","products":"SiC/GaN substrates, epitaxy, 8-inch analog wafers","why":"Power device cost and performance are substrate-sensitive.","companies":"Wolfspeed, Coherent, TankeBlue, Shin-Etsu, SUMCO"},{"layer":"Packages and passives","products":"Power modules, ceramic substrates, leadframes, MLCC","why":"Thermal and reliability performance depends on packaging inputs.","companies":"ROHM, StarPower, Murata, Yageo, Shinko Electric"}],"memory_storage":[{"layer":"WFE and materials","products":"Deposition/etch/CMP, wafers, specialty gases","why":"Bit supply and HBM yield depend on capex and materials intensity.","companies":"Lam Research, Applied Materials, Tokyo Electron, Shin-Etsu, Entegris"},{"layer":"Packaging and test","products":"HBM stacking, probe cards, ATE, substrates","why":"HBM creates non-memory bottlenecks in back-end flow.","companies":"Hanmi Semiconductor, Advantest, ISC, Leeno, ASE"}],"foundry_idm":[{"layer":"Equipment stack","products":"Lithography, deposition, etch, clean, implant, CMP","why":"Tool availability and process capability define node and capacity.","companies":"ASML, Applied Materials, Lam Research, Tokyo Electron, Screen"},{"layer":"Process materials","products":"Silicon wafers, gases, photoresist, CMP slurry/pads, wet chemicals","why":"Wafer starts convert directly into recurring material demand.","companies":"Shin-Etsu, SUMCO, Entegris, JSR, Anji Microelectronics"}],"wfe":[{"layer":"Precision subsystems","products":"Vacuum valves, RF generators, motion stages, pumps, ceramics","why":"Subsystem constraints can cap equipment delivery and margins.","companies":"VAT Group, MKS Instruments, Comet, Ferrotec, Kyocera"},{"layer":"Customer capex","products":"Foundry, memory and advanced packaging capacity plans","why":"WFE orders lead revenue but depend on customer ROI and subsidies.","companies":"TSMC, Samsung Electronics, SK hynix, Intel, SMIC"}],"process_control_test":[{"layer":"Probe and consumables","products":"Probe cards, sockets, contactors, handlers","why":"Advanced packages and HBM raise test time and consumable intensity.","companies":"FormFactor, Technoprobe, ISC, Leeno, Cohu"},{"layer":"Inspection inputs","products":"Optics, sensors, precision stages, software analytics","why":"Yield bottlenecks increase process-control wallet share.","companies":"KLA, Onto Innovation, Lasertec, Nova, Camtek"}],"materials_wafers":[{"layer":"Feedstocks and specialty chemistry","products":"High-purity gases, precursors, resins, solvents, metals","why":"Purity and qualification barriers drive pricing power.","companies":"Linde, Air Liquide, Entegris, Merck KGaA, Nata"},{"layer":"Substrate inputs","products":"Polysilicon, quartz, graphite, SiC powder/crystals","why":"Wafer and compound substrate cycles depend on upstream purity and capacity.","companies":"Shin-Etsu, SUMCO, GlobalWafers, Soitec, TankeBlue"}],"osat_packaging":[{"layer":"Package materials","products":"ABF/BT substrate, leadframe, mold compound, underfill, bonding wire","why":"Advanced packaging capacity is useless without qualified materials.","companies":"Ibiden, Unimicron, Shinko Electric, Resonac, Mitsui High-tec"},{"layer":"Back-end tools","products":"Bonders, dicing, plating, inspection, test handlers","why":"HBM/2.5D complexity raises equipment and yield-control intensity.","companies":"BESI, ASMPT, DISCO, Hanmi Semiconductor, Advantest"}],"substrate_pcb":[{"layer":"Copper and resin stack","products":"Copper foil, resin, prepreg, CCL, ABF/BT resin","why":"Low-loss material mix drives AI PCB ASP, yield and margin.","companies":"Elite Material, Shengyi Technology, Kingboard Laminates, Nan Ya Plastics, Mitsui Mining & Smelting"},{"layer":"Glass and reinforcement","products":"Electronic glass cloth, glass fiber, fillers","why":"High-speed boards need lower Dk/Df, tighter dimensional stability and better thermal performance.","companies":"Nitto Boseki, Taiwan Glass, China Jushi, Sinoma Science, Kingboard Holdings"},{"layer":"PCB process inputs","products":"Drilling, plating chemicals, laser direct imaging, AOI","why":"Layer count and yield are equipment/material constrained.","companies":"DISCO, SCREEN, Orbotech/KLA, Shanghai Sinyang, Kingsemi"}],"optical_photonics":[{"layer":"Optical components","products":"Lasers, EML/VCSEL, lenses, isolators, FAU, TOSA/ROSA","why":"Module cost and yield depend on component supply and coupling precision.","companies":"Coherent, Lumentum, MACOM, TFC Optical, Broadex"},{"layer":"Silicon and board inputs","products":"Optical DSP, silicon photonics, low-loss PCB, connectors","why":"800G/1.6T needs silicon and board readiness, not just module assembly.","companies":"Marvell, Broadcom, Credo, Elite Material, Amphenol"}],"ems_odm_systems":[{"layer":"System BOM","products":"GPU/ASIC, memory, switches, optics, power supplies, cooling, racks","why":"ODM revenue is constrained by upstream allocation and rack readiness.","companies":"NVIDIA, SK hynix, Arista, Delta Electronics, Vertiv"},{"layer":"Manufacturing inputs","products":"PCBs, cables, connectors, thermal modules, enclosures","why":"Rack-scale build quality and working capital depend on physical components.","companies":"Unimicron, Amphenol, FIT Hon Teng, AVC, Luxshare Precision"}],"adjacent_infra":[{"layer":"Electrical supply chain","products":"Transformers, switchgear, UPS, power distribution, grid equipment","why":"Power availability can bottleneck AI deployments after chip supply improves.","companies":"Eaton, Schneider Electric, Vertiv, Delta Electronics, Hubbell"},{"layer":"Thermal and interconnect","products":"Liquid cooling, heat exchangers, cold plates, cables, connectors","why":"Power density raises content per rack and changes system architecture.","companies":"Vertiv, Delta Electronics, Amphenol, TE Connectivity, Luxshare Precision"}],"passives_components":[{"layer":"Material inputs","products":"Ceramic powder, electrodes, conductive paste, ferrite, rare metals","why":"Component pricing and quality depend on material cost and process know-how.","companies":"Murata, TDK, Taiyo Yuden, Yageo, Samsung Electro-Mechanics"},{"layer":"End-market pull","products":"Auto electronics, smartphones, AI servers, industrial modules","why":"Inventory and content cycles differ sharply by end market.","companies":"BYD Electronic, Hon Hai, Quanta, Bosch, Tesla"}]};
+const SEGMENT_VALUE_POOLS = {"eda_ip":{"revenue_model":"Subscription / maintenance / IP royalty / design-service NRE","margin_profile":"Very high software-like gross margin for EDA/IP; lower but still attractive for ASIC services","capital_intensity":"Low","cycle_beta":"Low to medium; design activity is steadier than wafer shipments","competition":"Highly concentrated global oligopoly in EDA; more fragmented in design services","ai_leverage":"High through custom ASIC, accelerated design complexity and advanced-node verification","valuation_anchor":"Recurring revenue growth, RPO, FCF margin, IP royalty durability"},"fabless_compute":{"revenue_model":"Product sales, platform attach, networking/system bundles, custom silicon NRE and production revenue","margin_profile":"High for differentiated accelerators/platform chips; can dilute when systems pass-through rises","capital_intensity":"Low internal capex but high external supply-chain prepayments and inventory commitments","cycle_beta":"High, but currently dominated by cloud AI capex and supply constraints","competition":"Winner-take-most ecosystems, plus custom ASIC challengers and CPU incumbents","ai_leverage":"Very high","valuation_anchor":"AI revenue durability, gross margin ceiling, customer concentration, supply bottleneck control"},"mobile_rf_connectivity":{"revenue_model":"Chip/module sales into handset, IoT, auto connectivity and consumer platforms","margin_profile":"Medium to high; premium RF/CIS/SoC can be attractive, DDI and low-end connectivity more commoditized","capital_intensity":"Low to medium; mostly fabless but inventory and module content matter","cycle_beta":"High for handset/display, medium for IoT/connectivity","competition":"Mix of global leaders, Apple/internal silicon risk and China localization challengers","ai_leverage":"Medium through edge AI and premium device content","valuation_anchor":"Unit cycle, content per device, customer concentration and inventory normalization"},"networking_silicon":{"revenue_model":"Silicon product sales, custom silicon programs, optical DSP/retimer content and platform software attach","margin_profile":"High when IP and product differentiation are strong; module-adjacent silicon faces ASP pressure","capital_intensity":"Low internal capex; high dependence on advanced foundry and package allocation","cycle_beta":"High, tied to cloud AI capex and port-speed transitions","competition":"Broadcom/NVIDIA/Marvell plus high-growth specialists in retimer, SerDes and optical DSP","ai_leverage":"Very high","valuation_anchor":"Port-speed migration, attach rates, hyperscaler awards, custom silicon backlog"},"analog_power":{"revenue_model":"Broad SKU chip/device/module sales, often through direct and distributor channels","margin_profile":"Medium to high; strongest in proprietary analog, auto/industrial and high-performance power","capital_intensity":"Medium to high for IDMs and SiC; low to medium for fabless analog","cycle_beta":"Medium to high; inventory cycles can be long and painful","competition":"Global incumbents with long-tail SKU depth; China challengers increasingly relevant","ai_leverage":"Medium, rising through AI server power and power density","valuation_anchor":"Through-cycle FCF, inventory inflection, design-in quality and utilization recovery"},"memory_storage":{"revenue_model":"Commodity and specialty memory bit shipments, contract pricing, SSD/HDD/storage product sales","margin_profile":"Highly cyclical; HBM and enterprise storage improve mix but do not eliminate cycle risk","capital_intensity":"Very high","cycle_beta":"Very high","competition":"DRAM concentrated; NAND more competitive; HDD duopoly/oligopoly dynamics","ai_leverage":"Very high through HBM and AI storage","valuation_anchor":"Normalized earnings, memory ASP cycle, HBM mix, capex discipline"},"foundry_idm":{"revenue_model":"Wafer sales, process platform services, specialty foundry, captive IDM product economics","margin_profile":"High at leading edge when scarce; lower and more volatile at mature nodes when utilization falls","capital_intensity":"Very high","cycle_beta":"High; utilization and depreciation drive earnings torque","competition":"TSMC dominates leading edge; mature nodes more regional and price competitive","ai_leverage":"High for advanced foundry and packaging; medium for mature nodes","valuation_anchor":"Utilization, node mix, capex ROI, depreciation, geopolitical risk premium"},"wfe":{"revenue_model":"Tool sales, service, spares, upgrades and installed-base support","margin_profile":"High for technology leaders and service-rich models","capital_intensity":"Medium; R&D and supply chain are critical, but customers carry fab capex","cycle_beta":"High; orders and backlog move before revenue","competition":"Process-step oligopolies with high switching cost and long qualification cycles","ai_leverage":"High through HBM, advanced logic and packaging intensity","valuation_anchor":"WFE TAM, backlog quality, service mix, China exposure, process-step wallet share"},"process_control_test":{"revenue_model":"Capital equipment, probe cards, sockets, handlers, consumables and services","margin_profile":"High in process control and probe cards; medium in handlers and services","capital_intensity":"Medium","cycle_beta":"Medium to high; less purely cyclical when consumables/service mix is high","competition":"Strong niche leaders; advanced-node/test complexity raises barriers","ai_leverage":"High through HBM, AI SoC test time and advanced packaging yield control","valuation_anchor":"Test intensity, probe card ASP, platform cycles, installed base and recurring consumables"},"materials_wafers":{"revenue_model":"Consumables, wafers, specialty gases, chemicals, photomasks, engineered substrates, LTAs","margin_profile":"Medium to high; best where qualification barriers and specialty content are high","capital_intensity":"Medium to high for wafers/gases; medium for specialty chemicals","cycle_beta":"Medium; tied to wafer starts and fab utilization","competition":"Japan/US/Europe strong in high-end materials; China localization expanding","ai_leverage":"Medium to high through advanced nodes, EUV, HBM and fab buildout","valuation_anchor":"Wafer starts, qualification wins, material intensity, pricing under LTAs"},"osat_packaging":{"revenue_model":"Assembly, packaging, test services, advanced package capacity and packaging equipment","margin_profile":"Low to medium in traditional OSAT; higher in scarce advanced packaging equipment/capacity","capital_intensity":"Medium to high","cycle_beta":"High for traditional OSAT; high but supply-constrained for advanced packaging","competition":"OSAT scale leaders plus foundry captive advanced packaging","ai_leverage":"Very high through CoWoS, HBM and 2.5D/3D packaging","valuation_anchor":"Advanced packaging mix, utilization, capex ROI, customer pre-commitments"},"substrate_pcb":{"revenue_model":"Substrate/PCB/CCL sales; product mix and layer count drive ASP","margin_profile":"Medium; high-end ABF/AI PCB and low-loss materials can be stronger","capital_intensity":"Medium to high","cycle_beta":"High; consumer PCB and substrate cycles differ from AI server demand","competition":"Asian manufacturing leaders; customer qualification and yield matter","ai_leverage":"Very high through AI server/rack substrate, PCB and low-loss material content","valuation_anchor":"Layer count, ABF capacity, low-loss material mix, AI server share, yield"},"optical_photonics":{"revenue_model":"Modules, lasers, optical components, optical DSP, manufacturing services and systems","margin_profile":"Medium; components/DSP can be higher, modules face ASP erosion","capital_intensity":"Medium","cycle_beta":"High; cloud awards and telecom cycles can diverge sharply","competition":"China module leaders, US component/laser/DSP names and contract manufacturing specialists","ai_leverage":"Very high through 800G/1.6T and cluster scale-out","valuation_anchor":"Port-speed migration, ASP erosion, customer awards, laser yield and product mix"},"ems_odm_systems":{"revenue_model":"Manufacturing services, ODM design, rack/system integration, pass-through hardware revenue","margin_profile":"Low to medium; can improve with engineering complexity and rack-scale integration","capital_intensity":"Low to medium but working capital can be heavy","cycle_beta":"High; customer program timing and inventory swings matter","competition":"Scale manufacturing, supply-chain execution and customer trust","ai_leverage":"High through AI server and rack integration","valuation_anchor":"Cash conversion, AI server mix, customer concentration, gross margin sustainability"},"adjacent_infra":{"revenue_model":"Power/cooling equipment, connectors/cables, fab services, precision subsystems, project revenue","margin_profile":"Medium to high depending on product vs turnkey/project mix","capital_intensity":"Medium","cycle_beta":"Medium; more tied to construction/project cycles than chip ASPs","competition":"Industrial leaders plus high-spec component specialists","ai_leverage":"High through power density, liquid cooling and rack/fab infrastructure","valuation_anchor":"Backlog, power density, liquid cooling attach, project margin, component scarcity"},"passives_components":{"revenue_model":"Electronic component sales through direct/distributor channels; mix drives ASP","margin_profile":"Medium; high-end auto/server components stronger than consumer commodity parts","capital_intensity":"Medium","cycle_beta":"Medium to high; distributor inventory cycles are important","competition":"Japan/Taiwan/Korea leaders with scale and material know-how","ai_leverage":"Medium through AI server power and high-frequency components","valuation_anchor":"Inventory cycle, high-end mix, utilization, auto/industrial content"}};
+const SEGMENT_TECH_ROUTE_RECAP = {"eda_ip":"过去几年主线从单点工具授权转向全流程平台、cloud EDA、emulation/verification farm和AI-assisted design；未来看AI agent是否提升设计效率、先进封装/3DIC sign-off复杂度、以及IP royalty在custom ASIC和chiplet时代的扩张。","fabless_compute":"路线从通用CPU/GPU扩展到GPU集群、DPU/NIC、custom ASIC、chiplet、HBM集成和scale-up/scale-out互联；未来看推理芯片、ASIC经济性、软件生态、封装带宽和功耗约束如何重新分配GPU/ASIC/CPU价值。","mobile_rf_connectivity":"路线从4G/5G modem和分立RF前端走向高度集成SoC、Wi-Fi 7/8、卫星通信、端侧AI和更多自研modem；未来看AI手机是否带动memory/SoC/RF内容，同时关注Apple/Android平台自研和国产替代价格压力。","networking_silicon":"路线从传统交换ASIC升级到400G/800G/1.6T Ethernet、CXL/PCIe retimer、光DSP、DPU/SmartNIC和custom network silicon；未来看Ethernet vs InfiniBand、scale-up互联、硅光/CPO是否改变芯片与光模块价值分配。","analog_power":"路线从传统模拟/PMIC扩展到高压电源、隔离、SiC/GaN、数字电源和AI服务器多相供电；未来看工业去库存、EV渗透节奏、SiC价格曲线和AI rack功率密度对高端电源器件的拉动。","memory_storage":"路线从commodity DRAM/NAND扩展到DDR5、LPDDR5/6、HBM3E/HBM4、CXL memory和enterprise SSD；未来看HBM堆叠/良率/产能、commodity DRAM供需纪律、NAND合同化和AI storage需求能否改善周期斜率。","foundry_idm":"路线从平面工艺到FinFET、GAA/nanosheet、backside power、advanced specialty process和区域化产能；未来看TSMC领先优势、Intel/Samsung追赶、成熟制程本地化过剩、以及先进封装与晶圆制造边界重塑。","wfe":"路线从单机台性能竞争转向EUV/High-NA、先进刻蚀/沉积、ALD、hybrid bonding、先进封装设备和数字化服务；未来看AI/HBM/2nm驱动的process-step wallet share、中国国产替代和出口管制对订单质量的影响。","process_control_test":"路线从前道缺陷检测扩展到EUV metrology、AI yield analytics、HBM/advanced package test、探针卡和高速接口测试；未来看测试时间、探针/插座耗材、良率爬坡和封装复杂度是否持续提升测试强度。","materials_wafers":"路线从大宗硅片/化学品走向EUV photoresist、高纯气体、先进CMP、SOI/SiC/compound substrate和本地化认证；未来看先进节点材料强度、国产替代突破、客户qualification周期和原材料成本传导。","osat_packaging":"路线从wirebond/flip-chip走向fan-out、2.5D interposer、CoWoS类封装、hybrid bonding、HBM stack和SiP；未来看先进封装瓶颈是否从foundry外溢给OSAT，以及设备、基板、良率如何决定利润分配。","substrate_pcb":"路线从普通HDI/多层板升级到ABF/BT substrate、高层数AI server PCB、低损耗CCL、背钻/HDI和更严格热管理；未来看AI服务器layer count、低Dk/Df材料、ABF扩产纪律和客户认证带来的ASP/良率弹性。","optical_photonics":"路线从100G/200G/400G走向800G、1.6T、coherent optics、silicon photonics、LPO/linear drive和CPO讨论；未来看激光器良率、DSP价值量、模块ASP erosion、客户award和CPO/硅光落地节奏。","ems_odm_systems":"路线从板级/服务器ODM走向AI server、rack-scale集成、液冷机柜、整机测试和供应链融资；未来看ODM能否留住工程价值、还是继续被客户压成低毛利pass-through，同时关注working capital和客户集中。","adjacent_infra":"路线从通用电力/散热/连接器升级到AI data center高功率密度、液冷、母线/电源分配、精密连接和fab自动化组件；未来看电力瓶颈、液冷渗透、数据中心建设周期和fab localization项目节奏。","passives_components":"路线从标准MLCC/电阻电感走向车规、高频高速、服务器电源、传感和连接模块；未来看AI服务器与汽车电子高端mix能否抵消消费库存周期，以及国产替代是否带来价格竞争。"};
+const SEGMENT_DIRECT_UPSTREAM_GROUPS = {"eda_ip":[{"title":"Design compute and emulation infrastructure","note":"EDA runtime increasingly depends on accelerated compute, emulation farms and cloud capacity.","items":["input_eda_ip_0"]},{"title":"Foundry / PDK / IP qualification ecosystem","note":"Tools and IP become valuable only after foundry process decks, reference flows and customer sign-off are qualified.","items":["input_eda_ip_1"]}],"fabless_compute":[{"title":"Design enablement","note":"EDA, IP, verification and ASIC service capability are the first upstream gate before tape-out.","items":["eda_ip"]},{"title":"Advanced wafer and package capacity","note":"Advanced-node wafers, CoWoS/2.5D and final test determine shipment cadence.","items":["foundry_idm","osat_packaging"]},{"title":"Bandwidth and interconnect inputs","note":"HBM/DRAM plus ABF substrates and low-loss boards can bottleneck accelerator ramps.","items":["memory_storage","substrate_pcb"]}],"mobile_rf_connectivity":[{"title":"Design and process enablement","note":"SoC, modem, RF and DDI products need IP, specialty processes and customer platform qualification.","items":["eda_ip","foundry_idm"]},{"title":"Modules, package and passive content","note":"RF modules and consumer platforms pull SiP/OSAT, filters, MLCC, substrates and HDI boards.","items":["osat_packaging","passives_components","substrate_pcb"]}],"networking_silicon":[{"title":"SerDes / IP / design services","note":"High-speed switch, DSP, retimer and DPU designs are constrained by SerDes IP and verification.","items":["eda_ip"]},{"title":"Advanced wafer and package supply","note":"Port-speed migration depends on advanced logic, mixed-signal process capacity and high-speed package/test.","items":["foundry_idm","osat_packaging"]},{"title":"Board and optical ecosystem","note":"Low-loss PCB, optical DSP/module readiness and retimer attach decide system-level bandwidth.","items":["substrate_pcb","optical_photonics"]}],"analog_power":[{"title":"Specialty wafers and process platforms","note":"BCD, SiC/GaN, analog and mature-node platforms shape cost, yield and reliability.","items":["eda_ip","foundry_idm","materials_wafers"]},{"title":"Power package and component stack","note":"Power modules, thermal paths, ceramic substrates, leadframes and passives determine application performance.","items":["osat_packaging","passives_components"]}],"memory_storage":[{"title":"Fab tools / bit-supply capacity","note":"Lithography, etch, deposition, clean and CMP tools set DRAM/NAND/HBM bit supply and capex timing.","items":["wfe"]},{"title":"Process materials and wafers","note":"Silicon wafers, specialty gases, photoresist, CMP and wet chemicals scale with memory utilization and node transitions.","items":["materials_wafers"]},{"title":"Yield, test and HBM backend bottlenecks","note":"HBM and advanced memory raise probe, ATE, stacking and backend process intensity.","items":["process_control_test","input_memory_storage_1"]}],"foundry_idm":[{"title":"Manufacturing equipment","note":"Lithography, etch, deposition, clean, implant and CMP define node capability and capacity.","items":["wfe"]},{"title":"Wafers and process materials","note":"Wafer starts directly consume silicon wafers, gases, photoresist, CMP and wet chemicals.","items":["materials_wafers"]},{"title":"Yield control and design ecosystem","note":"Metrology/inspection protects yield; PDKs and EDA ecosystems make processes usable for customers.","items":["process_control_test","eda_ip"]}],"wfe":[{"title":"Precision subsystems and critical components","note":"Vacuum valves, RF generators, motion stages, pumps, ceramics and optics constrain tool delivery and margin.","items":["input_wfe_0"]}],"process_control_test":[{"title":"Probe, socket and consumables","note":"Probe cards, sockets, contactors and handlers scale with HBM, advanced package and high-speed test intensity.","items":["input_process_control_test_0"]},{"title":"Optics, sensors, stages and analytics","note":"Inspection and metrology tools depend on precision optics, sensors, stages and yield-analytics software.","items":["input_process_control_test_1"]}],"materials_wafers":[{"title":"Feedstocks and specialty chemistry","note":"High-purity gases, precursors, resins, solvents and metals drive qualification and pricing power.","items":["input_materials_wafers_0"]},{"title":"Substrate and engineered-material inputs","note":"Polysilicon, quartz, graphite, SiC powder/crystals and engineered substrates define wafer quality and capacity.","items":["input_materials_wafers_1"]}],"osat_packaging":[{"title":"Incoming wafers / dies","note":"Finished logic and memory wafers move into assembly, advanced packaging and final test.","items":["foundry_idm","memory_storage"]},{"title":"Package materials and substrates","note":"ABF/BT substrates, leadframes, mold compound, underfill and bonding wire determine advanced package yield and cost.","items":["substrate_pcb","input_osat_packaging_0"]},{"title":"Backend tools and test","note":"Bonders, dicing, plating, inspection, handlers and ATE become scarce as HBM/2.5D complexity rises.","items":["process_control_test","input_osat_packaging_1"]}],"substrate_pcb":[{"title":"Copper, resin and laminate stack","note":"Copper foil, resin, prepreg, CCL and ABF/BT resin drive low-loss material mix, yield and margin.","items":["input_substrate_pcb_0"]},{"title":"Glass and reinforcement","note":"Electronic glass cloth, glass fiber and fillers improve dimensional stability and thermal performance.","items":["input_substrate_pcb_1"]},{"title":"PCB process equipment and chemistry","note":"Drilling, plating chemistry, laser direct imaging and AOI constrain layer-count and yield.","items":["input_substrate_pcb_2"]}],"optical_photonics":[{"title":"Optical components","note":"Lasers, EML/VCSEL, lenses, isolators, FAU and TOSA/ROSA dominate module yield and cost.","items":["input_optical_photonics_0"]},{"title":"Silicon, DSP and high-speed board inputs","note":"Switch silicon, optical DSP, silicon photonics, low-loss PCB and connectors set 800G/1.6T readiness.","items":["networking_silicon","substrate_pcb","input_optical_photonics_1"]}],"ems_odm_systems":[{"title":"Compute, memory and networking BOM","note":"GPU/ASIC, HBM/DRAM/SSD and switch/NIC/DPU allocation determine server/rack shipment cadence.","items":["fabless_compute","memory_storage","networking_silicon"]},{"title":"Board, optical and component BOM","note":"High-layer PCB, optical modules, connectors, passives and sensors convert chip supply into systems.","items":["substrate_pcb","optical_photonics","passives_components"]},{"title":"Power, cooling and rack infrastructure","note":"Power modules, cooling, interconnect and facility constraints gate rack-scale deployment.","items":["analog_power","adjacent_infra"]}],"adjacent_infra":[{"title":"Electrical supply chain","note":"Transformers, switchgear, UPS, power distribution and grid equipment determine power availability.","items":["input_adjacent_infra_0"]},{"title":"Thermal and interconnect stack","note":"Liquid cooling, heat exchangers, cold plates, cables and connectors rise with rack power density.","items":["input_adjacent_infra_1","analog_power"]}],"passives_components":[{"title":"Material and process inputs","note":"Ceramic powder, electrodes, conductive paste, ferrite and rare metals drive component quality and cost.","items":["input_passives_components_0"]}]};
 const CYCLE_POSITION_LOOKUP = {"eda_ip":"Mid/late structural upcycle: design complexity and AI/custom ASIC activity remain strong, but valuation sensitivity is high after the AI software/IP rerating.","fabless_compute":"Late-cycle / capacity-constrained AI boom: demand visibility remains strong, but the marginal debate has shifted to ROI, customer concentration and supply bottleneck migration.","mobile_rf_connectivity":"Early recovery / restock watch: Android and consumer electronics are improving from inventory lows, but sell-through proof is still needed.","networking_silicon":"Mid structural upcycle: AI cluster scale-out and port-speed migration are still pulling content, while expectations are already elevated.","analog_power":"Bottoming / early recovery: distributor inventory and industrial weakness are still a drag, with the trade waiting for order inflection and utilization recovery.","memory_storage":"Mid-to-late pricing upcycle: HBM is structural and commodity DRAM/NAND pricing is tight, but capex response is the next-cycle risk.","foundry_idm":"Bifurcated: leading-edge AI/HPC capacity is tight, while mature-node utilization is still recovering and policy-led additions create overcapacity risk.","wfe":"Re-accelerating capex upcycle: AI, memory and China/localization spending support orders, but export-control mix and pull-forward risk need monitoring.","process_control_test":"Mid upcycle: advanced packaging, HBM and complex SoCs increase test/metrology intensity, with timing less synchronized than headline WFE.","materials_wafers":"Mid-cycle recovery: wafer starts and fab utilization are improving selectively; advanced materials outperform commodity wafers/chemicals.","osat_packaging":"Tight advanced-packaging upcycle, traditional OSAT recovery: CoWoS/HBM/2.5D is scarce, while legacy consumer packaging remains more cyclical.","substrate_pcb":"AI PCB/substrate upcycle vs consumer PCB recovery: high-layer PCB, ABF and low-loss CCL are stronger than commodity boards.","optical_photonics":"High-beta AI datacom upcycle with pullback risk: 800G/1.6T and CPO/NPO narratives are strong, but module ASP erosion and catalyst gaps create volatility.","ems_odm_systems":"AI server/rack ramp phase: revenue momentum is strong, but market is testing margin quality, working capital and customer concentration.","adjacent_infra":"Data-center construction backlog upcycle: power, cooling and interconnect remain capacity constraints, with project timing and margins the key watch items.","passives_components":"Early cyclical recovery: inventory correction is fading gradually, but commodity passives still need price and utilization confirmation."};
 const segmentById = new Map(SEGMENTS.map(s => [s.id, s]));
+const UPSTREAM_INPUT_NODES = {};
+Object.entries(SEGMENT_UPSTREAM_STACK).forEach(([parentId, stack]) => {
+  const parent = segmentById.get(parentId);
+  (stack || []).forEach((item, idx) => {
+    const id = `input_${parentId}_${idx}`;
+    UPSTREAM_INPUT_NODES[id] = {
+      id,
+      parent_id: parentId,
+      parent_name: parent?.name_cn || parentId,
+      stage: 'Direct upstream input',
+      layer: item.layer,
+      products: item.products,
+      why: item.why,
+      companies: item.companies,
+      cycle_type: 'Input / material qualification cycle',
+      cycle_position: `Tracks ${parent?.name_cn || parentId}: watch qualification, capacity, pricing and cost pass-through.`,
+      drivers: item.why,
+      leading: 'Customer qualification wins, material price/lead-time, new capacity ramp, yield feedback.',
+      lagging: 'Revenue mix, gross margin, customer concentration and working-capital absorption.',
+      watchout: 'Do not treat every upstream input as pure volume beta; qualification, purity/spec and pass-through differ by material.',
+    };
+  });
+});
+const INPUT_SUPPLY_EDGES = Object.values(UPSTREAM_INPUT_NODES).map(node => ({
+  from: node.id,
+  to: node.parent_id,
+  lane: 'input',
+  flow: `${node.layer} supplies ${node.products} into ${node.parent_name}.`,
+  signal: node.leading,
+}));
+const SUPPLY_MAP_EDGES = SUPPLY_EDGES.concat(INPUT_SUPPLY_EDGES);
+const DETAIL_EDGES = EDGES.concat(INPUT_SUPPLY_EDGES);
 const DEMAND_TERMINAL_TEXT = {
   demand_ai_dc: 'Downstream/end use: cloud AI services, enterprise AI adoption, model training/inference workloads and application ROI. It is an end-demand node, so chips / memory / networking / optical / systems are its upstream supply, not downstream demand.',
   demand_smartphone: 'Downstream/end use: consumer device sell-through, carrier/OEM build plans, app ecosystem and replacement cycle.',
@@ -1773,6 +1991,7 @@ const canvas = document.getElementById('logicCanvas');
 const scenarioPanel = document.getElementById('scenarioPanel');
 const detail = document.getElementById('nodeDetail');
 const scenarioButtons = document.querySelectorAll('[data-scenario]');
+const scenarioByDemand = new Map(SCENARIOS.map(s => [s.demand_node, s.id]));
 let selectedNode = 'demand_ai_dc';
 let selectedScenario = 'ai_rack';
 let selectedStageIndex = 0;
@@ -1788,6 +2007,17 @@ function companyHref(c) {
 }
 function companyLink(c, label=null) {
   return `<a class="company-link" href="${companyHref(c)}" title="${safe(c.ticker)} · ${safe(c.exchange)} · ${safe(c.segment)}">${safe(label || c.display_company || c.company)}</a>`;
+}
+function roadmapCompanyLabel(c, fallback='') {
+  if (!c) return fallback;
+  const market = c.listing_market || c.region || '';
+  if (market === '美股') return c.ticker || fallback || c.company;
+  if (market === 'A股' || market === '港股') return c.company_cn || c.display_company || c.company || fallback;
+  return c.display_company || c.company_cn || fallback || c.company || c.ticker;
+}
+function companyChip(label) {
+  if (!label) return '';
+  return `<span class="company-pill">${safe(label)}</span>`;
 }
 function normalizeCompanyToken(value) {
   return String(value ?? '').toLowerCase().replace(/&/g, 'and').replace(/[^a-z0-9]/g, '');
@@ -1834,16 +2064,32 @@ function coreNameLinksFromText(text) {
   }).join('');
   return `<div class="company-link-row">${html}</div>`;
 }
+function companyChipsFromText(text, limit=5) {
+  const labels = String(text || '').split(',').map(x => x.trim()).filter(Boolean).slice(0, limit);
+  if (!labels.length) return '<span class="muted-inline">n/a</span>';
+  const chips = labels.map(label => {
+    const hit = resolveCompanyLabel(label);
+    return companyChip(hit ? roadmapCompanyLabel(hit, label) : label);
+  }).join('');
+  return `<div class="company-pill-row">${chips}</div>`;
+}
+function companyChipsForSegment(segmentId, limit=5) {
+  const companies = COMPANIES.filter(c => c.segment_id === segmentId && c.priority === 'Core').slice(0, limit);
+  if (!companies.length) return '<span class="muted-inline">n/a</span>';
+  return `<div class="company-pill-row">${companies.map(c => companyChip(roadmapCompanyLabel(c))).join('')}</div>`;
+}
 function coreCompanyLinksForSegment(segmentId, limit=12) {
   const coreCompanies = COMPANIES.filter(c => c.segment_id === segmentId && c.priority === 'Core').slice(0, limit);
   if (!coreCompanies.length) return 'n/a';
   return `<div class="company-link-row">${coreCompanies.map(c => companyLink(c)).join('')}</div>`;
 }
 function nodeLabel(id) {
+  if (UPSTREAM_INPUT_NODES[id]) return UPSTREAM_INPUT_NODES[id].layer;
   if (segmentById.has(id)) return segmentById.get(id).name_cn;
   return DEMANDS[id]?.name_cn || id;
 }
 function nodeSub(id) {
+  if (UPSTREAM_INPUT_NODES[id]) return UPSTREAM_INPUT_NODES[id].products;
   if (segmentById.has(id)) return segmentById.get(id).name_en;
   return DEMANDS[id]?.name_en || '';
 }
@@ -1853,6 +2099,35 @@ function isRelated(edge) {
 function scenario() {
   return SCENARIOS.find(s => s.id === selectedScenario) || SCENARIOS[0];
 }
+function syncScenarioButtons() {
+  scenarioButtons.forEach(btn => btn.classList.toggle('active', btn.dataset.scenario === selectedScenario));
+}
+function activateScenarioForDemand(nodeId) {
+  const nextScenario = scenarioByDemand.get(nodeId);
+  if (!nextScenario) return false;
+  const changed = selectedScenario !== nextScenario;
+  selectedScenario = nextScenario;
+  selectedStageIndex = 0;
+  return changed;
+}
+function selectNode(nodeId, options={}) {
+  if (!nodeId) return;
+  selectedNode = nodeId;
+  if (DEMANDS[nodeId]) activateScenarioForDemand(nodeId);
+  syncScenarioButtons();
+  renderDetail();
+  if (options.scrollDetail) {
+    document.getElementById('nodeDetail')?.scrollIntoView({behavior:'smooth', block:'nearest'});
+  }
+}
+function selectScenario(scenarioId) {
+  if (!scenarioId) return;
+  selectedScenario = scenarioId;
+  selectedStageIndex = 0;
+  selectedNode = scenario().demand_node;
+  syncScenarioButtons();
+  renderDetail();
+}
 function scenarioNodeSet() {
   const nodes = new Set();
   for (const stage of scenario().stages) {
@@ -1861,17 +2136,45 @@ function scenarioNodeSet() {
   return nodes;
 }
 function cycleForNode(id) {
+  if (UPSTREAM_INPUT_NODES[id]) return UPSTREAM_INPUT_NODES[id];
   return SEGMENT_CYCLES[id] || DEMAND_CYCLES[id] || {};
+}
+function nodeSignal(id, override='') {
+  if (override) return override;
+  if (UPSTREAM_INPUT_NODES[id]) return UPSTREAM_INPUT_NODES[id].leading || UPSTREAM_INPUT_NODES[id].why || '';
+  const cycle = cycleForNode(id);
+  if (cycle.leading) return cycle.leading;
+  if (cycle.drivers) return cycle.drivers;
+  if (DEMANDS[id]?.role) return DEMANDS[id].role;
+  return '';
+}
+function nodeCompanyChips(id) {
+  if (UPSTREAM_INPUT_NODES[id]) return companyChipsFromText(UPSTREAM_INPUT_NODES[id].companies, 5);
+  if (segmentById.has(id)) return companyChipsForSegment(id, 5);
+  if (DEMANDS[id]?.core_names) return companyChipsFromText(DEMANDS[id].core_names, 5);
+  return '<span class="muted-inline">n/a</span>';
 }
 function cycleCard(title, value, tone='') {
   if (!value) return '';
   return `<article class="cycle-card ${tone}"><b>${safe(title)}</b><span>${safe(value)}</span></article>`;
 }
 function cyclePosition(id) {
+  if (UPSTREAM_INPUT_NODES[id]) return UPSTREAM_INPUT_NODES[id].cycle_position || '';
   return SEGMENT_CYCLES[id]?.cycle_position || DEMAND_CYCLES[id]?.cycle_position || CYCLE_POSITION_LOOKUP[id] || '';
 }
+function detailHeader(title, subtitle) {
+  return `<section class="detail-sticky-head">
+    <h3>${safe(title)}</h3>
+    <p>${safe(subtitle || '')}</p>
+  </section>`;
+}
 function renderInvestmentLogic(id) {
-  const logic = SEGMENT_INVESTMENT_LOGIC[id] || DEMAND_INVESTMENT_LOGIC[id];
+  const inputNode = UPSTREAM_INPUT_NODES[id];
+  const logic = SEGMENT_INVESTMENT_LOGIC[id] || DEMAND_INVESTMENT_LOGIC[id] || (inputNode ? {
+    consensus: `Market treats this as a supply-chain enabler for ${inputNode.parent_name}; debate centers on qualification, specification upgrade and pricing pass-through.`,
+    recent_performance: `Performance should be read against ${inputNode.parent_name} order momentum plus material/input price and lead-time signals.`,
+    trade_logic: `The trade is input bottleneck proof: favor suppliers with qualified capacity, spec upgrade and margin pass-through, not just generic volume exposure.`,
+  } : null);
   if (!logic) return '';
   return `<section class="logic-panel">
     <span class="mini-label">Investment logic / 投资逻辑</span>
@@ -1883,15 +2186,79 @@ function renderInvestmentLogic(id) {
     <p class="logic-caveat">Market read is a framework layer; refresh price performance, estimates and positioning through CIQ/Wind before publication-grade use.</p>
   </section>`;
 }
-function renderFoundationalSupply(id) {
-  const stack = SEGMENT_UPSTREAM_STACK[id] || [];
-  if (!stack.length) return '';
-  return stack.map(item => `
-    <div class="rel-node stack-layer">
-      <b>${safe(item.layer)}</b>
-      <small>${safe(item.products)}</small>
-      <span>${safe(item.companies)}</span>
-    </div>`).join('');
+function renderIndustryPrimer(id) {
+  const inputNode = UPSTREAM_INPUT_NODES[id];
+  const isDemand = id.startsWith('demand_');
+  const segment = segmentById.get(id);
+  let rows = [];
+  if (inputNode) {
+    const parent = segmentById.get(inputNode.parent_id) || {};
+    const parentPool = SEGMENT_VALUE_POOLS[inputNode.parent_id] || {};
+    rows = [
+      ['基本介绍', `${inputNode.layer} is a direct upstream input layer for ${inputNode.parent_name}; it supplies ${inputNode.products}. ${inputNode.why}`],
+      ['商业模式', `Suppliers monetize qualified materials, equipment/process know-how or components through design-in qualification, long customer approval cycles, price/mix upgrades and cost pass-through. It usually earns by being specified into ${inputNode.parent_name}, not by pure commodity volume.`],
+      ['竞争格局', `Representative names: ${inputNode.companies}. Competitive advantage comes from customer qualification, purity/spec control, yield contribution, lead-time reliability and capacity discipline; the parent segment's value-pool lens is ${parentPool.competition || parent.competition || 'qualification-driven niche competition'}.`],
+      ['技术路线复盘', `This input layer follows the parent roadmap: ${SEGMENT_TECH_ROUTE_RECAP[inputNode.parent_id] || parent.questions || ''} For this input specifically, watch spec upgrade, material substitution, process qualification and whether customers can dual-source without yield loss.`],
+    ];
+  } else if (isDemand) {
+    const demand = DEMANDS[id] || {};
+    rows = [
+      ['基本介绍', `${demand.name_cn || nodeLabel(id)} is an end-demand pull node. It converts end-market capex, device sell-through or policy demand into BOM demand across ${demand.products || 'the semiconductor stack'}.`],
+      ['商业模式', `The demand-side buyers monetize cloud services, devices, infrastructure or system deployments; for this map the key is not their margin model alone, but how their capex, build plan and inventory behavior transmit into chip, board, optical and system orders.`],
+      ['竞争格局', `Competition sits at the customer/platform layer: cloud/OEM/platform leaders allocate orders across suppliers, and supplier bargaining power depends on bottlenecks, qualification, ecosystem lock-in and second-source availability.`],
+      ['技术路线复盘', `${demand.questions || demand.role || ''} Recent route changes should be read through architecture shifts, BOM intensity, power/network constraints and whether the demand pull is structural adoption or temporary inventory build.`],
+    ];
+  } else if (segment) {
+    const pool = SEGMENT_VALUE_POOLS[id] || {};
+    rows = [
+      ['基本介绍', `${segment.role} Main products: ${segment.products}`],
+      ['商业模式', `${pool.revenue_model || segment.value_pool}. ${segment.value_pool} Margin/capital profile: ${pool.margin_profile || 'varies by product mix'}; capital intensity: ${pool.capital_intensity || 'n/a'}.`],
+      ['竞争格局', `${segment.competition} Industry structure: ${pool.competition || 'see segment-specific concentration and customer qualification barriers.'}`],
+      ['技术路线复盘', SEGMENT_TECH_ROUTE_RECAP[id] || segment.questions || 'Technology route should be refreshed through company filings and customer roadmap checks.'],
+    ];
+  }
+  if (!rows.length) return '';
+  const bullets = rows.map(([title, text]) => `<li><b>${safe(title)}:</b> ${safe(text)}</li>`).join('');
+  return `<section class="primer-panel">
+    <span class="mini-label">Industry primer / 行业基本介绍</span>
+    <ul class="primer-bullets">${bullets}</ul>
+  </section>`;
+}
+function renderDirectUpstreamEdges(edges) {
+  const seen = new Set();
+  return edges.filter(edge => {
+    if (!edge?.from || seen.has(edge.from)) return false;
+    seen.add(edge.from);
+    return true;
+  }).map(edge => {
+    const klass = edge.from.startsWith('demand_') ? 'demand' : (UPSTREAM_INPUT_NODES[edge.from] ? 'stack-layer' : '');
+    return relNodeButton(edge.from, edgeNote(edge), klass);
+  }).join('');
+}
+function renderDirectUpstreamGroups(id, upstreamEdges) {
+  const groups = SEGMENT_DIRECT_UPSTREAM_GROUPS[id] || [];
+  if (!groups.length) return renderDirectUpstreamEdges(upstreamEdges);
+  const edgeByFrom = new Map(upstreamEdges.map(edge => [edge.from, edge]));
+  const seen = new Set();
+  const groupHtml = groups.map(group => {
+    const items = (group.items || []).filter(itemId => {
+      if (!itemId || seen.has(itemId)) return false;
+      if (!UPSTREAM_INPUT_NODES[itemId] && !segmentById.has(itemId) && !DEMANDS[itemId]) return false;
+      seen.add(itemId);
+      return true;
+    });
+    if (!items.length) return '';
+    const cards = items.map(itemId => {
+      const edge = edgeByFrom.get(itemId);
+      const klass = UPSTREAM_INPUT_NODES[itemId] ? 'stack-layer' : (itemId.startsWith('demand_') ? 'demand' : '');
+      return relNodeButton(itemId, edgeNote(edge), klass);
+    }).join('');
+    return `<article class="upstream-group-card">
+      <div class="upstream-group-head"><b>${safe(group.title)}</b>${group.note ? `<span>${safe(group.note)}</span>` : ''}</div>
+      <div class="upstream-group-items">${cards}</div>
+    </article>`;
+  }).join('');
+  return groupHtml || renderDirectUpstreamEdges(upstreamEdges);
 }
 function flowRow(label, html, index, extra='') {
   if (!html) return '';
@@ -1902,7 +2269,14 @@ function flowRow(label, html, index, extra='') {
 }
 function relNodeButton(id, note='', extra='') {
   const klass = `rel-node ${extra || ''}`.trim();
-  return `<button class="${klass}" data-rel-node="${safe(id)}"><b>${safe(nodeLabel(id))}</b><small>${safe(nodeSub(id))}</small>${note ? `<span>${safe(note)}</span>` : ''}</button>`;
+  const intro = nodeSub(id) || 'n/a';
+  const signal = nodeSignal(id, note) || 'n/a';
+  return `<button class="${klass}" data-rel-node="${safe(id)}" type="button">
+    <b>${safe(nodeLabel(id))}</b>
+    <span class="rel-node-field"><em>基础介绍</em><small>${safe(intro)}</small></span>
+    <span class="rel-node-field"><em>Signal</em><small>${safe(signal)}</small></span>
+    <span class="rel-node-field companies"><em>主要公司</em>${nodeCompanyChips(id)}</span>
+  </button>`;
 }
 function relText(text) {
   if (!text) return '';
@@ -1913,31 +2287,28 @@ function uniqueIds(ids) {
 }
 function edgeNote(edge) {
   if (!edge) return '';
-  return edge.signal ? `Signal: ${edge.signal}` : edge.flow;
+  return edge.signal || edge.flow;
 }
 function renderRelationshipMap(id) {
-  const upstream = SUPPLY_EDGES.filter(e => e.to === id);
-  const downstream = SUPPLY_EDGES.filter(e => e.from === id);
+  const upstream = SUPPLY_MAP_EDGES.filter(e => e.to === id);
+  const downstream = SUPPLY_MAP_EDGES.filter(e => e.from === id);
   const entity = segmentById.get(id);
+  const inputNode = UPSTREAM_INPUT_NODES[id];
   const isDemand = id.startsWith('demand_');
-  const upstreamFallback = isDemand ? (DEMANDS[id]?.products || '') : (entity?.upstream || '');
-  const downstreamFallback = isDemand ? (DEMAND_TERMINAL_TEXT[id] || '') : (entity?.downstream || '');
-  const upstreamIndustryHtml = upstream.map(edge => {
-    const klass = edge.from.startsWith('demand_') ? 'demand' : '';
-    return relNodeButton(edge.from, edgeNote(edge), klass);
-  }).join('');
-  const foundationalHtml = isDemand ? '' : renderFoundationalSupply(id);
-  const centerHtml = `<button class="rel-node current"><b>${safe(nodeLabel(id))}</b><small>${safe(nodeSub(id))}</small><span>${safe(isDemand ? 'End demand / demand theme' : 'Selected industry segment')}</span></button>`;
+  const isInput = !!inputNode;
+  const upstreamFallback = isDemand ? (DEMANDS[id]?.products || '') : (isInput ? 'Raw feedstocks, process know-how and qualified capacity are the next layer below this input node.' : (entity?.upstream || ''));
+  const downstreamFallback = isDemand ? (DEMAND_TERMINAL_TEXT[id] || '') : (isInput ? '' : (entity?.downstream || ''));
+  const directUpstreamHtml = renderDirectUpstreamGroups(id, upstream);
+  const centerHtml = `<button class="rel-node current"><b>${safe(nodeLabel(id))}</b><small>${safe(nodeSub(id))}</small><span>${safe(isDemand ? 'End demand / demand theme' : (isInput ? 'Selected direct upstream input' : 'Selected industry segment'))}</span></button>`;
   const downstreamEdgeHtml = downstream.map(edge => {
     const klass = edge.to.startsWith('demand_') ? 'demand' : '';
     return relNodeButton(edge.to, edgeNote(edge), klass);
   }).join('');
   const rows = [];
-  if (foundationalHtml) rows.push({ label: 'Foundational supply / 基础供给', html: foundationalHtml, extra: 'foundation' });
-  if (upstreamIndustryHtml) {
-    rows.push({ label: isDemand ? 'Pulled supply / 被需求拉动的供给' : 'Industry upstream / 产业上游', html: upstreamIndustryHtml, extra: 'upstream' });
-  } else if (!foundationalHtml && upstreamFallback) {
-    rows.push({ label: 'Upstream supply / 上游供给', html: relText(upstreamFallback), extra: 'upstream' });
+  if (directUpstreamHtml) {
+    rows.push({ label: isDemand ? 'Direct upstream supply / 直接上游供给' : 'Direct upstream / 直接上游', html: directUpstreamHtml, extra: 'upstream' });
+  } else if (upstreamFallback) {
+    rows.push({ label: 'Direct upstream / 直接上游', html: relText(upstreamFallback), extra: 'upstream' });
   }
   rows.push({ label: 'Selected node / 当前环节', html: centerHtml, extra: 'current' });
   const downstreamHtml = downstreamEdgeHtml + (downstreamFallback ? relText(downstreamFallback) : '');
@@ -1947,7 +2318,7 @@ function renderRelationshipMap(id) {
     <section class="relationship-map">
       <div class="relationship-title">
         <b>Industry road map / 产业链传导图</b>
-        <span>按“基础供给 → 产业上游 → 当前环节 → 下游需求”阅读，基础材料、设备、工艺输入直接嵌入每个环节的 upstream road map。</span>
+        <span>按“直接上游 → 当前环节 → 下游需求”阅读；材料、设备、工艺输入和产业上游已汇总去重到最直接的上游供给关系。</span>
       </div>
       <div class="flow-stack">${flowHtml || relText('No direct roadmap mapped yet.')}</div>
     </section>`;
@@ -1956,9 +2327,7 @@ function bindRelationshipButtons() {
   detail.querySelectorAll('[data-rel-node]').forEach(btn => btn.addEventListener('click', () => {
     const next = btn.dataset.relNode;
     if (!next || next === selectedNode) return;
-    selectedNode = next;
-    renderDetail();
-    detail.scrollIntoView({behavior:'smooth', block:'nearest'});
+    selectNode(next, {scrollDetail:true});
   }));
 }
 function stageCycleNote(stage) {
@@ -2021,14 +2390,12 @@ function renderScenarioPanel() {
     renderScenarioPanel();
   }));
   scenarioPanel.querySelectorAll('[data-jump-node]').forEach(btn => btn.addEventListener('click', () => {
-    selectedNode = btn.dataset.jumpNode;
-    renderDetail();
-    document.getElementById('nodeDetail')?.scrollIntoView({behavior:'smooth', block:'nearest'});
+    selectNode(btn.dataset.jumpNode, {scrollDetail:true});
   }));
 }
 function updateNodeStates() {
   const scenarioNodes = scenarioNodeSet();
-  const related = EDGES.filter(isRelated);
+  const related = DETAIL_EDGES.filter(isRelated);
   const sources = new Set(related.map(e => e.from));
   const targets = new Set(related.map(e => e.to));
   const connected = new Set([...scenarioNodes, ...sources, ...targets, selectedNode]);
@@ -2042,7 +2409,7 @@ function updateNodeStates() {
   });
 }
 function renderDetail() {
-  const related = EDGES.filter(isRelated);
+  const related = DETAIL_EDGES.filter(isRelated);
   const incoming = related.filter(e => e.to === selectedNode);
   const outgoing = related.filter(e => e.from === selectedNode);
   const edgeHtml = related.map(e => `
@@ -2051,20 +2418,48 @@ function renderDetail() {
       <span>${safe(e.flow)}</span>
       <span><b>Signal:</b> ${safe(e.signal)}</span>
     </div>`).join('');
-  if (selectedNode.startsWith('demand_')) {
+  if (UPSTREAM_INPUT_NODES[selectedNode]) {
+    const n = UPSTREAM_INPUT_NODES[selectedNode];
+    const parent = segmentById.get(n.parent_id) || {};
+    const c = cycleForNode(selectedNode);
+    detail.innerHTML = `
+      ${detailHeader(n.layer, n.products)}
+      ${renderIndustryPrimer(selectedNode)}
+      ${renderInvestmentLogic(selectedNode)}
+      <span class="mini-label">Cycle guide / 周期读法</span>
+      <div class="detail-quick">
+        ${cycleCard('位置', `Direct upstream -> ${n.parent_name}`, 'important')}
+        ${cycleCard('周期类型', c.cycle_type, 'important')}
+        ${cycleCard('周期位置', cyclePosition(selectedNode), 'important')}
+        ${cycleCard('核心驱动', c.drivers)}
+        ${cycleCard('领先信号', c.leading, 'important')}
+        ${cycleCard('误读风险', c.watchout, 'warning')}
+      </div>
+      ${renderRelationshipMap(selectedNode)}
+      <dl>
+        <dt>Served segment</dt><dd><button class="inline-node-link" data-rel-node="${safe(n.parent_id)}">${safe(n.parent_name)}</button></dd>
+        <dt>Input products</dt><dd>${safe(n.products)}</dd>
+        <dt>Why it matters</dt><dd>${safe(n.why)}</dd>
+        <dt>Representative names</dt><dd>${coreNameLinksFromText(n.companies)}</dd>
+        <dt>Parent industry role</dt><dd>${safe(parent.role || '')}</dd>
+        <dt>Parent downstream</dt><dd>${safe(parent.downstream || '')}</dd>
+        <dt>Company table</dt><dd><a href="coverage_universe.html?segment=${safe(n.parent_id)}">Open parent segment universe</a></dd>
+      </dl>
+      <div class="edge-list">${edgeHtml || '<div class="edge-card"><span>No related edge selected.</span></div>'}</div>`;
+  } else if (selectedNode.startsWith('demand_')) {
     const d = DEMANDS[selectedNode];
     const c = cycleForNode(selectedNode);
     detail.innerHTML = `
-      <h3>${safe(d.name_cn)}</h3>
-      <p>${safe(d.name_en)}</p>
-      <span class="mini-label">Cycle position / 周期位置</span>
+      ${detailHeader(d.name_cn, d.name_en)}
+      ${renderIndustryPrimer(selectedNode)}
+      ${renderInvestmentLogic(selectedNode)}
+      <span class="mini-label">Cycle guide / 周期读法</span>
       <div class="detail-quick">
         ${cycleCard('周期类型', c.cycle_type, 'important')}
         ${cycleCard('周期位置', cyclePosition(selectedNode), 'important')}
         ${cycleCard('核心驱动', c.drivers)}
         ${cycleCard('领先信号', c.leading, 'important')}
       </div>
-      ${renderInvestmentLogic(selectedNode)}
       ${renderRelationshipMap(selectedNode)}
       <div class="detail-quick">
         ${cycleCard('滞后确认', c.lagging)}
@@ -2087,8 +2482,9 @@ function renderDetail() {
     const companies = COMPANIES.filter(c => c.segment_id === selectedNode);
     const coreCount = companies.filter(c => c.priority === 'Core').length;
     detail.innerHTML = `
-      <h3>${safe(s.name_cn)}</h3>
-      <p>${safe(s.role)}</p>
+      ${detailHeader(s.name_cn, s.role)}
+      ${renderIndustryPrimer(selectedNode)}
+      ${renderInvestmentLogic(selectedNode)}
       <span class="mini-label">Cycle guide / 周期读法</span>
       <div class="detail-quick">
         ${cycleCard('周期类型', c.cycle_type || s.cycle, 'important')}
@@ -2096,7 +2492,6 @@ function renderDetail() {
         ${cycleCard('核心驱动', c.drivers)}
         ${cycleCard('领先信号', c.leading, 'important')}
       </div>
-      ${renderInvestmentLogic(selectedNode)}
       ${renderRelationshipMap(selectedNode)}
       <span class="mini-label">More cycle checks / 进一步验证</span>
       <div class="detail-quick">
@@ -2122,23 +2517,17 @@ function renderDetail() {
       <div class="edge-list">${edgeHtml || '<div class="edge-card"><span>No related edge selected.</span></div>'}</div>`;
   }
   bindRelationshipButtons();
+  syncScenarioButtons();
   updateNodeStates();
   renderScenarioPanel();
 }
 document.querySelectorAll('[data-node]').forEach(btn => btn.addEventListener('click', () => {
-  selectedNode = btn.dataset.node;
-  renderDetail();
+  selectNode(btn.dataset.node);
 }));
 scenarioButtons.forEach(btn => btn.addEventListener('click', () => {
-  selectedScenario = btn.dataset.scenario;
-  selectedStageIndex = 0;
-  selectedNode = scenario().demand_node;
-  scenarioButtons.forEach(b => b.classList.toggle('active', b === btn));
-  updateNodeStates();
-  renderScenarioPanel();
-  renderDetail();
+  selectScenario(btn.dataset.scenario);
 }));
-scenarioButtons.forEach(btn => btn.classList.toggle('active', btn.dataset.scenario === selectedScenario));
+syncScenarioButtons();
 renderDetail();
 </script>
 

@@ -17,6 +17,7 @@ Run date: 2026-06-18
 - Segment investment-logic briefs: 16
 - Demand investment-logic briefs: 6
 - Segment upstream-stack maps: 16
+- Clickable upstream input nodes: 33
 - Supply-chain relationship edges: 15
 - Value-chain logic edges: 32
 - Supply-demand adjacency edges: 64
@@ -54,8 +55,35 @@ Run date: 2026-06-18
 - pages/value_chain.html: present
   - logicCanvas: present
   - scenarioPanel: present
+  - Integrated industry map: present
+  - map-node input compact: present
+  - input →: present
+  - detail-sticky-head: present
+  - position:sticky: present
+  - function detailHeader: present
+  - scenario-entry: present
+  - data-demand-scenario: present
+  - scenarioByDemand: present
+  - activateScenarioForDemand: present
+  - function selectNode: present
+  - function selectScenario: present
   - Industry road map: present
-  - Foundational supply: present
+  - Direct upstream: present
+  - 直接上游: present
+  - SEGMENT_DIRECT_UPSTREAM_GROUPS: present
+  - upstream-group-card: present
+  - renderDirectUpstreamGroups: present
+  - input_substrate_pcb_0: present
+  - rel-node-field: present
+  - company-pill-row: present
+  - Industry primer: present
+  - primer-bullets: present
+  - SEGMENT_TECH_ROUTE_RECAP: present
+  - Selected direct upstream input: present
+  - INPUT_SUPPLY_EDGES: present
+  - UPSTREAM_INPUT_NODES: present
+  - Copper and resin stack: present
+  - inline-node-link: present
   - stage-workbench: present
   - read-path: present
   - Value-Chain: present
