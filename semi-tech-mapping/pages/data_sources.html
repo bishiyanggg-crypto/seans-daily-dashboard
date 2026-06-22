@@ -1830,6 +1830,51 @@ th {
 tbody tr:hover {
   background:#f7fbff;
 }
+.mini-fin-table {
+  min-width:0;
+  margin-top:10px;
+  border:1px solid var(--line);
+  border-radius:8px;
+  overflow:hidden;
+  font-size:12px;
+}
+.mini-fin-table table {
+  min-width:0;
+  font-size:12px;
+}
+.mini-fin-table th,
+.mini-fin-table td {
+  padding:7px 8px;
+  white-space:nowrap;
+}
+.fy-note {
+  margin:8px 0 0;
+  color:var(--muted);
+  font-size:11px;
+  line-height:1.45;
+}
+.metric-strip {
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:8px;
+  margin:8px 0 10px;
+}
+.metric-strip div {
+  border:1px solid var(--line);
+  border-radius:8px;
+  padding:8px;
+  background:#fbfcfb;
+}
+.metric-strip b {
+  display:block;
+  font-size:11px;
+  color:var(--muted);
+}
+.metric-strip span {
+  display:block;
+  margin-top:3px;
+  font-weight:850;
+}
 .priority {
   display:inline-block;
   border-radius:999px;
@@ -1975,7 +2020,7 @@ tbody tr:hover {
 
   <nav class="app-nav" aria-label="Primary navigation">
     <div class="nav-frame">
-      <a class="brand" href="../semi_industry_mapping.html">Semi Tech Mapping<span>research cockpit · 2026-06-18</span></a>
+      <a class="brand" href="../semi_industry_mapping.html">Semi Tech Mapping<span>research cockpit · 2026-06-22</span></a>
       <div class="nav-links"><a class="" href="../semi_industry_mapping.html">Home</a>
 <a class="" href="../pages/value_chain.html">Value Chain</a>
 <a class="" href="../pages/coverage_universe.html">Universe</a>
@@ -2063,7 +2108,7 @@ tbody tr:hover {
 <tr><td>CIQ export refresh</td><td>Market cap, EV, FY revenue, gross margin, EV/Sales, P/E, consensus growth, identifiers and ownership.</td><td>Preferred market-data and consensus source once exported or accessed through Chrome.</td><td><a href="User-provided CIQ account/export" target="_blank" rel="noopener">open</a></td></tr></tbody></table></div>
 </main>
 
-<footer class="footer">Data cut-off: 2026-06-18. This is a research mapping artifact, not investment advice. Market data fields should be refreshed through CIQ/export before valuation use.</footer>
+<footer class="footer">Data cut-off: 2026-06-22. This is a research mapping artifact, not investment advice. Market data fields should be refreshed through CIQ/export before valuation use.</footer>
 
 </body>
 </html>

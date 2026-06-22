@@ -1,6 +1,6 @@
 # Semi Tech Industry Mapping - Source and Methodology Note
 
-Data cut-off: 2026-06-18
+Data cut-off: 2026-06-22
 
 ## Scope
 

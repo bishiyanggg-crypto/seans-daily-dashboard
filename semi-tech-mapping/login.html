@@ -1815,6 +1815,51 @@ th {
 tbody tr:hover {
   background:#f7fbff;
 }
+.mini-fin-table {
+  min-width:0;
+  margin-top:10px;
+  border:1px solid var(--line);
+  border-radius:8px;
+  overflow:hidden;
+  font-size:12px;
+}
+.mini-fin-table table {
+  min-width:0;
+  font-size:12px;
+}
+.mini-fin-table th,
+.mini-fin-table td {
+  padding:7px 8px;
+  white-space:nowrap;
+}
+.fy-note {
+  margin:8px 0 0;
+  color:var(--muted);
+  font-size:11px;
+  line-height:1.45;
+}
+.metric-strip {
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:8px;
+  margin:8px 0 10px;
+}
+.metric-strip div {
+  border:1px solid var(--line);
+  border-radius:8px;
+  padding:8px;
+  background:#fbfcfb;
+}
+.metric-strip b {
+  display:block;
+  font-size:11px;
+  color:var(--muted);
+}
+.metric-strip span {
+  display:block;
+  margin-top:3px;
+  font-weight:850;
+}
 .priority {
   display:inline-block;
   border-radius:999px;
